@@ -4,7 +4,7 @@ const url = require('url');
 const express = require('express');
 const db = require('./lib/db.js');
 const { v4: uid } = require('uuid');
-const date_ob = new Date();
+const djte_ob = new Date();
 
 
 const app = express();
@@ -110,6 +110,10 @@ app.post('/:id/daily', function(req, res){
 	var uuid = req.body.uuid;
 	db.query(`SELECT * FROM clients`, function(err, clients){
 		db.query(`SELECT * FROM daily_diary WHERE uuid=?`, [uuid], function(err, daily_diary){
+			console.log(daily_diary);
+			console.log(daily_diary);
+			console.log(daily_diary);
+			console.log(daily_diary);
 			console.log(daily_diary);
 		var title = req.params.id;
 		var template = `
