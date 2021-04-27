@@ -1,0 +1,12 @@
+{
+	"name": "5ydiary",
+	"description": "",
+	"repository": "git",
+	"url": "",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.17.1",
+		"mysql": "^2.18.1",
+		"uuid": "^8.3.2"
+	}
+}
