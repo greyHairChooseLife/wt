@@ -4,7 +4,7 @@ const url = require('url');
 const express = require('express');
 const db = require('./lib/db.js');
 const { v4: uid } = require('uuid');
-const djte_ob = new Date();
+const date_ob = new Date();
 
 
 const app = express();
@@ -110,56 +110,56 @@ app.post('/:id/daily', function(req, res){
 	var uuid = req.body.uuid;
 	db.query(`SELECT * FROM clients`, function(err, clients){
 		db.query(`SELECT * FROM daily_diary WHERE uuid=?`, [uuid], function(err, daily_diary){
-			console.log(daily_diary);
-			console.log(daily_diary);
-			console.log(daily_diary);
-			console.log(daily_diary);
-			console.log(daily_diary);
-		var title = req.params.id;
-		var template = `
-				<!doctype html>
-				<html>
-				<head>
-					<title>${title}'s diary</title>
-					<meta charset="utf-8">
-				</head>
-				<body>
-					<p><a href="/">home page</a></p>
-					<h1>daily</h1>
-					<h2>who's : ${title}</h2>
-					<p>
-						${daily_diary.content}
-					</p>
-					<form action="/${title}/daily_upload" method="post">
-						<input type="hidden" name="uuid" value="${uuid}">
-						<input type="hidden" name="name" value="${title}">
-						<textarea name="content" placeholder="2문장 이하, 오늘의 일기"></textarea>
-						<input type="submit" value="저장">
-					</form>
-				</body>
-				</html>
-				<style>
-					textarea {
-					width: 500px;
-					height: 50px;
-					}
-				</style>
-				`;
-		res.send(template);
+			db.query(`SELECT date_format(datetime, '%Y %m %d') from daily_diary`, function(err, date){
+			var title = req.params.id;
+
+			var content = `<tr>`;
+			var i;
+			for (i=daily_diary.length - 5; i<daily_diary.length; i++)
+				content += `
+				<td>${date[i][`date_format(datetime, '%Y %m %d')`]}</td>
+				<td>${daily_diary[i].content}</td>
+					</tr><tr>`;
+			content += `</tr>`;
+
+			var template = `
+					<!doctype html>
+					<html>
+					<head>
+						<title>${title}'s diary</title>
+						<meta charset="utf-8">
+					</head>
+					<body>
+						<p><a href="/">home page</a></p>
+						<h1>daily</h1>
+						<h2>who's : ${title}</h2>
+						<table>
+						${content}
+						</table>
+						<form action="/${title}/daily_upload" method="post">
+							<input type="hidden" name="uuid" value="${uuid}">
+							<input type="hidden" name="name" value="${title}">
+							<textarea name="content" placeholder="2문장 이하, 오늘의 일기"></textarea>
+							<input type="submit" value="저장">
+						</form>
+					</body>
+					</html>
+					<style>
+						textarea {
+						width: 500px;
+						height: 50px;
+						}
+					</style>
+					`;
+			res.send(template);
+			});
 		});
 	});
 });
 
 app.post('/:id/daily_upload', function(req, res){
 	var uuid = req.body.uuid;
-	var year = date_ob.getFullYear();
-	if(date_ob.getMonth()+1 < 10)
-		var date = `"${year} + "-" + ${(date_ob.getMonth()+1)} + "-0" + ${date_ob.getDate()}"`;
-	else
-		var date = `${year} + "-" + ${(date_ob.getMonth()+1)} + "-" + ${date_ob.getDate()}`;
-
-	var time = date_ob.getHours() + ":" + date_ob.getMinutes() + ":" + date_ob.getSeconds();
-	db.query(`INSERT INTO daily_diary (uuid, year, date, time, content) VALUES (?,?,?,?,?)`, [uuid, year, date, time, req.body.content], function(err){
+	db.query(`INSERT INTO daily_diary (uuid, content) VALUES (?,?)`, [uuid, req.body.content], function(err){
 		if(err) throw err;
 
 	res.redirect(307, `/${req.params.id}/daily`);
