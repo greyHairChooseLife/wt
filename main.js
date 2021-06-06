@@ -1,9 +1,9 @@
 const express = require('express');
 const db = require('./lib/db.js');
 const { v4: uid } = require('uuid');
-const date_ob = new Date();
-const diary = require('./lib/diary.js');
-const home = require('./lib/home.js');
+const write_diary = require('./lib/write_diary.js');
+const show_home = require('./lib/show_home.js');
+// 데이터 생성용 임시
 const testing = require('./lib/test_data_generater_testing.js');
 
 
@@ -12,7 +12,7 @@ const app = express();
 app.use(express.urlencoded());
 
 app.get('/', function(req, res){
-	home.home(req, res);
+	show_home.home(req, res);
 });
 
 
@@ -52,14 +52,14 @@ app.post('/create_process', function(req, res){
 });
 
 app.post('/delete_process', function(req, res){
-	db.query(`DELETE FROM clients WHERE _id=?`, [req.body.id], function(err){
+	db.query(`DELETE FROM clients WHERE id=?`, [req.body.id], function(err){
 		if(err) throw err;
 		res.redirect('/');
 	});
 });
 
 app.post('/:id/daily', function(req, res){
-	diary.daily(req, res);
+	write_diary.daily(req, res);
 });
 
 app.post('/:id/daily_upload', function(req, res){
@@ -71,32 +71,18 @@ app.post('/:id/daily_upload', function(req, res){
 	});
 });
 
-app.post('/:id/weekly', function(req, res){
-	diary.weekly(req, res);
+
+app.post('/:id/monthly_mode_A', function(req, res){
+	write_diary.monthly_mode_A(req, res);
 });
 
-app.post('/:id/weekly_upload', function(req, res){
-	var uuid = req.body.uuid;
-	db.query(`INSERT INTO weekly_diary (uuid, content) VALUES (?,?)`, [uuid, req.body.content], function(err){
-		if(err) throw err;
-
-	res.redirect(307, `/${req.params.id}/weekly`);
-	});
+app.post('/:id/monthly_mode_B', function(req, res){
+	write_diary.monthly_mode_B(req, res);
 });
 
-
-
-
-app.post('/:id/monthly', function(req, res){
-	diary.monthly(req, res);
-});
-
-app.post('/:id/annualy', function(req, res){
-	res.send("Aokay");
-});
 
 app.post('/:id/lifelong', function(req, res){
-	res.send("Lokay");
+	write_diary.lifelong(req, res);
 });
 
 app.post('/:id/picture_story', function(req, res){
@@ -104,4 +90,4 @@ app.post('/:id/picture_story', function(req, res){
 });
 
 
-app.listen(3006);
+app.listen(3015);
