@@ -1,10 +1,13 @@
 const express = require('express');
+
+/*
 const db = require('./lib/db.js');
 //const { v4: uid } = require('uuid');
 const write_diary = require('./lib/write_diary.js');
 const show_home = require('./lib/show_home.js');
 // 데이터 생성용 임시
 const testing = require('./lib/test_data_generater_testing.js');
+*/
 
 
 const app = express();
@@ -16,7 +19,7 @@ app.get('/', function(req, res){
 	res.send("move next, connect local database");
 });
 
-
+/*
 //test_data_generating.start
 app.post('/:id/test_data_generate', function(req, res){
 	testing.gen(req,res);
@@ -88,6 +91,7 @@ app.post('/:id/lifelong', function(req, res){
 app.post('/:id/picture_story', function(req, res){
 	res.send("PSokay");
 });
+*/
 
 
 app.listen(9999);
