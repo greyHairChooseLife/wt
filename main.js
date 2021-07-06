@@ -1,6 +1,6 @@
 const express = require('express');
 const db = require('./lib/db.js');
-const { v4: uid } = require('uuid');
+//const { v4: uid } = require('uuid');
 const write_diary = require('./lib/write_diary.js');
 const show_home = require('./lib/show_home.js');
 // 데이터 생성용 임시
