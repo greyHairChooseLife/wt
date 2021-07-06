@@ -16,11 +16,11 @@ app.get('/', function(req, res){
 });
 
 
-//test_data_generating
+//test_data_generating.start
 app.post('/:id/test_data_generate', function(req, res){
 	testing.gen(req,res);
 });
-//test_data_generating
+//test_data_generating.end
 
 
 app.get('/create', function(req, res){
@@ -35,7 +35,6 @@ app.get('/create', function(req, res){
 				<h1>5year diary</h1>
 				<h2>계정추가</h2>
 				<form action="/create_process" method="post">
-					<p><input type="hidden" name="uuid" value="${uid()}"></p>
 					<p><input type="text" name="name" placeholder="name"></p>
 					<p><input type="submit"></p>
 				</form>
@@ -45,14 +44,14 @@ app.get('/create', function(req, res){
 });
 
 app.post('/create_process', function(req, res){
-	db.query(`INSERT INTO clients (name, uuid) VALUES(?, ?)`, [req.body.name, req.body.uuid], function(err){
+	db.query(`INSERT INTO clients (name) VALUES(?)`, [req.body.name], function(err){
 		if(err) throw err;
 		res.redirect('/');
 	});
 });
 
 app.post('/delete_process', function(req, res){
-	db.query(`DELETE FROM clients WHERE id=?`, [req.body.id], function(err){
+	db.query(`DELETE FROM clients WHERE id_number=?`, [req.body.id_number], function(err){
 		if(err) throw err;
 		res.redirect('/');
 	});
@@ -90,4 +89,4 @@ app.post('/:id/picture_story', function(req, res){
 });
 
 
-app.listen(3015);
+app.listen(9999);

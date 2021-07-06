@@ -1,6 +1,9 @@
 {
 	"name": "5ydiary",
 	"description": "",
+	"scripts": {
+		"start": "node main.js"
+	},
 	"repository": "git",
 	"url": "",
 	"license": "ISC",
