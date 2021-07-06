@@ -12,7 +12,8 @@ const app = express();
 app.use(express.urlencoded());
 
 app.get('/', function(req, res){
-	show_home.home(req, res);
+	//show_home.home(req, res);
+	res.send("move next, connect local database");
 });
 
 
