@@ -1,13 +1,9 @@
 const express = require('express');
 
-/*
 const db = require('./lib/db.js');
-//const { v4: uid } = require('uuid');
 const write_diary = require('./lib/write_diary.js');
 const show_home = require('./lib/show_home.js');
-// 데이터 생성용 임시
 const testing = require('./lib/test_data_generater_testing.js');
-*/
 
 
 const app = express();
@@ -15,16 +11,15 @@ const app = express();
 app.use(express.urlencoded());
 
 app.get('/', function(req, res){
-	//show_home.home(req, res);
-	res.send("move next, connect local database");
+	show_home.home(req, res);
+	
+
 });
 
-/*
-//test_data_generating.start
+//test_data_generating
 app.post('/:id/test_data_generate', function(req, res){
 	testing.gen(req,res);
 });
-//test_data_generating.end
 
 
 app.get('/create', function(req, res){
@@ -65,6 +60,8 @@ app.post('/:id/daily', function(req, res){
 	write_diary.daily(req, res);
 });
 
+/*
+
 app.post('/:id/daily_upload', function(req, res){
 	var uuid = req.body.uuid;
 	db.query(`INSERT INTO daily_diary (uuid, content) VALUES (?,?)`, [uuid, req.body.content], function(err){
@@ -74,6 +71,7 @@ app.post('/:id/daily_upload', function(req, res){
 	});
 });
 
+*/
 
 app.post('/:id/monthly_mode_A', function(req, res){
 	write_diary.monthly_mode_A(req, res);
@@ -83,7 +81,7 @@ app.post('/:id/monthly_mode_B', function(req, res){
 	write_diary.monthly_mode_B(req, res);
 });
 
-
+/*
 app.post('/:id/lifelong', function(req, res){
 	write_diary.lifelong(req, res);
 });
@@ -94,4 +92,4 @@ app.post('/:id/picture_story', function(req, res){
 */
 
 
-app.listen(9999);
+app.listen(9998);
