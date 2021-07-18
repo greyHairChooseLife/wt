@@ -60,6 +60,17 @@ app.post('/:id/daily', function(req, res){
 	write_diary.daily(req, res);
 });
 
+app.post('/:id_number/daily_diary_upload', function(req, res){
+	console.log(req.body.daily_diary_comment);
+	console.log(req.body.daily_diary_Question);
+	console.log(req.body.id_number);
+	//db.query(`INSERT INTO daily_diary (id_number, Question) VALUES(?, ?)`, [req.body.id_number, req.body.daily_diary_Question], function(err){
+	//	if(err) throw err;
+		res.redirect('/');
+	//});
+
+});
+
 /*
 
 app.post('/:id/daily_upload', function(req, res){
