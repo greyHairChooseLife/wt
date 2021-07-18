@@ -1,0 +1,141 @@
+[33mcommit b7ea0fab5720629529ffa4e48300d382051e9402[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31mserver_ssh/master[m[33m)[m
+Merge: 0a9b281 d240353
+Author: wt_dev <greyHairChooseLife@gmail.com>
+Date:   Sun Jul 18 18:13:21 2021 +0900
+
+    3rd test
+
+[33mcommit d2403538d179fddf30d7339021dbe59e07632232[m
+Author: sy <greyhairchooselife@gmail.com>
+Date:   Sun Jul 18 18:03:28 2021 +0900
+
+    cowork test 2
+
+[33mcommit 0a9b28141fd51c9191c49e3ef9fa67605a4667aa[m
+Author: wt_dev <greyHairChooseLife@gmail.com>
+Date:   Sun Jul 18 17:21:09 2021 +0900
+
+    john test
+
+[33mcommit 47b262a431b8340125be4aa33f496824cdd22008[m
+Author: sy <greyhairchooselife@gmail.com>
+Date:   Sun Jul 18 17:17:17 2021 +0900
+
+    co-work test 1
+
+[33mcommit 6e50fef0cb68aeb38ce51e07e37f5009af90e7b8[m[33m ([m[1;31mserver/master[m[33m)[m
+Author: sy <greyhairchooselife@gmail.com>
+Date:   Sun Jul 18 14:53:06 2021 +0900
+
+    0718_1st
+
+[33mcommit d273dc26c979ca4cca3503ba6eca02046634d21f[m
+Author: sy <greyhairchooselife@gmail.com>
+Date:   Mon Jul 12 23:10:57 2021 +0900
+
+    default version
+
+[33mcommit 595b678e49d4fad42bf50dadfbe2e47139183bd9[m
+Author: sy <greyhairchooselife@gmail.com>
+Date:   Wed Jul 7 00:57:13 2021 +0900
+
+    4
+
+[33mcommit 66b157dca6ee6925588d493b7f3206cfdf7f4fc8[m
+Author: sy <greyhairchooselife@gmail.com>
+Date:   Wed Jul 7 00:48:14 2021 +0900
+
+    3
+
+[33mcommit 28e06404f0ab45dd4a47a72e3e465b36698372b1[m
+Author: sy <greyhairchooselife@gmail.com>
+Date:   Wed Jul 7 00:33:15 2021 +0900
+
+    modified, derive DB
+
+[33mcommit ee7833ce4674e8666393cd65b1f25c3aacf432fd[m
+Author: sy <greyhairchooselife@gmail.com>
+Date:   Wed Jul 7 00:18:25 2021 +0900
+
+    to server
+
+[33mcommit 11665d66ea49b76a87fe9531e31a7e74abda5694[m
+Author: Sangyeon Kim <greyHairChooseLife@gmail.com>
+Date:   Sun Jun 6 20:30:24 2021 +0900
+
+    why not
+
+[33mcommit 8a381181fca4e1271377bd105593b214d2d402ea[m
+Author: Sangyeon Kim <greyHairChooseLife@gmail.com>
+Date:   Sun Jun 6 20:06:52 2021 +0900
+
+    hello, friend
+
+[33mcommit 4d514cfba1b29b87cdc64e89099ebb2be5330f1d[m
+Author: Sangyeon Kim <greyHairChooseLife@gmail.com>
+Date:   Mon May 24 02:28:14 2021 +0900
+
+    기본 기능 완성. 월간도 만들고, 입력하는 부분 업데이트하면 끝이 보인다.
+
+[33mcommit a9fc0ad58efb38446f39e9b1cba70dfb68337b68[m
+Merge: 7a43a21 c1e6fb9
+Author: Sangyeon Kim <greyHairChooseLife@gmail.com>
+Date:   Wed Apr 28 15:13:40 2021 +0900
+
+    Merge branch 'master' of https://github.com/greyHairChooseLife/5_year_diary into sangyeon
+
+[33mcommit 7a43a21e8f50cbdb336d08d6dd42d20505bf0104[m
+Author: Sangyeon Kim <greyHairChooseLife@gmail.com>
+Date:   Wed Apr 28 15:04:28 2021 +0900
+
+    pull request test
+
+[33mcommit c1e6fb99b2cf9f1cad2aed53a1cba250554d1e6c[m
+Author: greyHairChooseLife <67201870+greyHairChooseLife@users.noreply.github.com>
+Date:   Wed Apr 28 14:16:40 2021 +0900
+
+    Update README.md
+
+[33mcommit 80786adfbb3014128c03f377cee234cf393b6e14[m
+Author: greyHairChooseLife <67201870+greyHairChooseLife@users.noreply.github.com>
+Date:   Wed Apr 28 11:51:21 2021 +0900
+
+    Update README.md
+
+[33mcommit 4eddc75b9ab44f50c89327e6a70ceee253ce84a7[m
+Author: greyHairChooseLife <67201870+greyHairChooseLife@users.noreply.github.com>
+Date:   Wed Apr 28 10:43:35 2021 +0900
+
+    Update README.md
+
+[33mcommit 0ae033fe9bbd989c8f161cf5fb337df428f77fe7[m
+Author: greyHairChooseLife <67201870+greyHairChooseLife@users.noreply.github.com>
+Date:   Wed Apr 28 10:29:32 2021 +0900
+
+    Update README.md
+
+[33mcommit 604c74e0fcf70e9e9df054e33f3b74f4bef8bf4b[m
+Author: greyHairChooseLife <67201870+greyHairChooseLife@users.noreply.github.com>
+Date:   Wed Apr 28 10:29:12 2021 +0900
+
+    Update README.md
+    
+    오타수정
+
+[33mcommit 068381ab79a2ce161a3f50a64ad4c65e7058d28b[m
+Author: greyHairChooseLife <67201870+greyHairChooseLife@users.noreply.github.com>
+Date:   Wed Apr 28 10:27:14 2021 +0900
+
+    Create README.md
+
+[33mcommit b9835e120fd6df8442af257049b04efbbabcba8c[m
+Author: Sangyeon Kim <greyHairChooseLife@gmail.com>
+Date:   Tue Apr 27 17:02:02 2021 +0900
+
+    main2.js modify
+
+[33mcommit fb8cd911e75d0fd61a4960a888fb6702ab90597d[m
+Author: Sangyeon Kim <greyHairChooseLife@gmail.com>
+Date:   Tue Apr 27 16:55:31 2021 +0900
+
+    first commit

@@ -6,7 +6,7 @@ const show_home = require('./lib/show_home.js');
 const testing = require('./lib/test_data_generater_testing.js');
 
 //test dateslkac
-//
+//add smth from laptop
 	
 const app = express();
 
