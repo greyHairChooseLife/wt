@@ -5,11 +5,6 @@ const write_diary = require('./lib/write_diary.js');
 const show_home = require('./lib/show_home.js');
 const testing = require('./lib/test_data_generater_testing.js');
 
-//test dateslkac
-//add smth from laptop
-//
-//this is different
-	
 const app = express();
 
 app.use(express.urlencoded());
@@ -65,15 +60,13 @@ app.post('/:id/daily', function(req, res){
 });
 
 app.post('/:id_number/daily_diary_upload', function(req, res){
-	console.log(req.body.daily_diary_comment);
-	console.log(req.body.daily_diary_Question);
-	console.log(req.body.id_number);
-	//db.query(`INSERT INTO daily_diary (id_number, Question) VALUES(?, ?)`, [req.body.id_number, req.body.daily_diary_Question], function(err){
-	//	if(err) throw err;
-		res.redirect('/');
-	//});
+	db.query(`INSERT INTO daily_diary (id_number, Question) VALUES(?, ?)`, [req.body.id_number, req.body.daily_diary_Question], function(err){
+		if(err) throw err;
+		res.redirect(`/`);
+	});
 
 });
+
 
 /*
 
@@ -96,6 +89,13 @@ app.post('/:id/monthly_mode_B', function(req, res){
 	write_diary.monthly_mode_B(req, res);
 });
 
+app.post('/:id_number/monthly_diary_upload', function(req, res){
+	db.query(`INSERT INTO monthly_diary (id_number, Question) VALUES(?, ?)`, [req.body.id_number, req.body.monthly_diary_Question], function(err){
+		if(err) throw err;
+		res.redirect(`/`);
+	});
+
+});
 /*
 app.post('/:id/lifelong', function(req, res){
 	write_diary.lifelong(req, res);
