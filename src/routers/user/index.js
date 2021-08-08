@@ -7,4 +7,4 @@ userRouter.get('/:id', userCtrl.read);
 userRouter.post('/:id', userCtrl.update);
 userRouter.delete('/:id', userCtrl.delete);
 
-exports = userRouter;
+module.exports = userRouter;

@@ -7,4 +7,4 @@ diaryRouter.get('/:id', diaryCtrl.read);
 diaryRouter.post('/:id', diaryCtrl.update);
 diaryRouter.delete('/:id', diaryCtrl.delete);
 
-exports = diaryRouter;
+module.exports = diaryRouter;
