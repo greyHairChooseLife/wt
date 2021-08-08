@@ -6,7 +6,7 @@ const tools = require('./tools.js');
 module.exports = {
 	gen: function(req, res){
 
-		var id;
+		var user_id;
 		var classes;
 		var created_date;
 		var content;
@@ -17,14 +17,14 @@ module.exports = {
 		//DAILY
 		for(var y=2010; y <= 2030; y++){
 			for(i=1; i <= 365; i++){
-				id = req.body.id;
+				user_id = req.body.user_id;
 				classes = 'd'
 				created_date = y + ':' + tools.switch_onlyM_from_D(i) + ':' + tools.switch_D_to_common_D(i);
 				content = `${y}년 ${i}번째 content`;
 				question = `${y}년 ${i}번째 날의 Question`;
 				score = 3;
 
-				db.query(`INSERT INTO diary (id, classes, created_date, content, question, score) VALUES(?, ?, ?, ?, ?, ?)`, [id, classes, created_date, content, question, score], function(err){
+				db.query(`INSERT INTO diary (user_id, classes, created_date, content, question, score) VALUES(?, ?, ?, ?, ?, ?)`, [user_id, classes, created_date, content, question, score], function(err){
 
 					if(err) throw err;
 				});
@@ -32,16 +32,17 @@ module.exports = {
 		}
 
 
+
 		//MONTHLY
 		for(var y=2010; y <= 2030; y++){
 			for(i=1; i <= 12; i++){
-				id = req.body.id;
+				user_id = req.body.user_id;
 				classes = 'm'
 				created_date = y + ':' + i + ':' + tools.switch_D_to_common_D(i);
 				content = `${y}년 ${i}월의 월간 content`;
 				question = `${y}년 ${i}월의 월간 Question`;
 
-				db.query(`INSERT INTO diary (id, classes, created_date, content, question) VALUES(?, ?, ?, ?, ?)`, [id, classes, created_date, content, question], function(err){
+				db.query(`INSERT INTO diary (user_id, classes, created_date, content, question) VALUES(?, ?, ?, ?, ?)`, [user_id, classes, created_date, content, question], function(err){
 
 					if(err) throw err;
 				});

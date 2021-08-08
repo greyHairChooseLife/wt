@@ -4,17 +4,17 @@ schema: wt
 
 table: diary
 
-+--------------+------------+------+-----+---------+-------+
-| Field        | Type       | Null | Key | Default | Extra |
-+--------------+------------+------+-----+---------+-------+
-| id           | int(11)    | NO   |     | NULL    |       |
-| class        | varchar(1) | NO   |     | NULL    |       |
-| created_date | datetime   | YES  |     | NULL    |       |
-| content      | text       | YES  |     | NULL    |       |
-| question     | text       | YES  |     | NULL    |       |
-| score        | int(1)     | YES  |     | NULL    |       |
-+--------------+------------+------+-----+---------+-------+
-
++--------------+------------+------+-----+---------+----------------+
+| Field        | Type       | Null | Key | Default | Extra          |
++--------------+------------+------+-----+---------+----------------+
+| id           | int(11)    | NO   | PRI | NULL    | auto_increment |
+| classes      | varchar(1) | YES  |     | NULL    |                |
+| created_date | datetime   | YES  |     | NULL    |                |
+| content      | text       | YES  |     | NULL    |                |
+| question     | text       | YES  |     | NULL    |                |
+| score        | int(1)     | YES  |     | NULL    |                |
+| user_id      | int(11)    | NO   | MUL | NULL    |                |
++--------------+------------+------+-----+---------+----------------+
 
 
 

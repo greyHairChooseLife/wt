@@ -9,7 +9,7 @@ const date_ob = new Date();
 
 exports.D = function(req, res){
 	var whos = req.params.id;
-	var id = req.body.id;
+	var user_id = req.body.user_id;
 	var focused_year = Number(req.query.year);
 	var focused_month = Number(req.query.month);
 	var focused_date = Number(tools.switch_D_to_common_D(req.query.date));
@@ -20,13 +20,16 @@ exports.D = function(req, res){
 	var date_con1 = "'" + (focused_date) + "'";
 	var date_con2 = "'" + (focused_date+1) + "'";
 
-	db.query(`SELECT * FROM diary WHERE (id=?) 
+	db.query(`SELECT * FROM diary WHERE (user_id=?) 
 		AND (classes = 'd')
 		AND (YEAR(created_date) BETWEEN ${year_con1} AND ${year_con2}) 
 		AND (MONTH(created_date) = ${focused_month})
 		AND (DAY(created_date) BETWEEN ${date_con1} AND ${date_con2})
 
-		`, [id], function(err, daily_diary){
+		`, [user_id], function(err, daily_diary){
+
+			console.log("user_id: ", user_id);
+			console.log(daily_diary);
 
 		if(err) throw err;
 
@@ -84,16 +87,15 @@ exports.D = function(req, res){
 		<div class="content" id="content_lv4_R">${daily_diary_lv4_R.content}</div>
 		`;
 
-		var html = D_template.daily_template(whos, content, id, focused_year, focused_month, focused_date); 
+		var html = D_template.daily_template(whos, content, user_id, focused_year, focused_month, focused_date); 
 		res.send(html);
 	});
 }
 
 
-
 exports.MA = function(req, res){
 	var whos = req.params.id;
-	var id = req.body.id;
+	var user_id = req.body.user_id;
 	var focused_year = Number(req.query.year);
 	var focused_month = Number(req.query.month);
 	var focused_date = Number(tools.switch_D_to_common_D(req.query.date));
@@ -106,16 +108,16 @@ exports.MA = function(req, res){
 	var month_con1 = "'" + (focused_month-1) + "'";
 	var month_con2 = "'" + (focused_month) + "'";
 
-		db.query(`SELECT * FROM diary WHERE (id=?)
+		db.query(`SELECT * FROM diary WHERE (user_id=?)
 			AND (classes='m')
 			AND (YEAR(created_date) BETWEEN ${year_con1} AND ${year_con2}) 
 			AND (MONTH(created_date) BETWEEN ${month_con1} AND ${month_con2}) 
 			
-			`, [id], function(err, monthly_diary){
+			`, [user_id], function(err, monthly_diary){
+
 
 			var answer;
 			for(answer = 0; answer < monthly_diary.length; answer++){
-				if(monthly_diary[answer].temperal_year == focused_year){
 					var monthly_diary_lv1_L = monthly_diary[answer-7];
 					var monthly_diary_lv1_R = monthly_diary[answer-6];
 					var monthly_diary_lv2_L = monthly_diary[answer-5];
@@ -124,63 +126,65 @@ exports.MA = function(req, res){
 					var monthly_diary_lv3_R = monthly_diary[answer-2];
 					var monthly_diary_lv4_L = monthly_diary[answer-1];
 					var monthly_diary_lv4_R = monthly_diary[answer-0];
-				}
 			}
 
 			var content = `
-			<div class="date" id="date_lv1_L">${monthly_diary_lv1_L.temperal_year}.${monthly_diary_lv1_L.temperal_month}</div>
-			<div class="content" id="content_lv1_L">${monthly_diary_lv1_L.comment}</div>
-			<div class="content_summary" id="content_summary_lv1_L">${monthly_diary_lv1_L.Question}</div>
+			<div class="date" id="date_lv1_L">${monthly_diary_lv1_L.created_date}</div>
+			<div class="content" id="content_lv1_L">${monthly_diary_lv1_L.content}</div>
+			<div class="content_summary" id="content_summary_lv1_L">${monthly_diary_lv1_L.question}</div>
 
-			<div class="date" id="date_lv1_R">${monthly_diary_lv1_R.temperal_year}.${monthly_diary_lv1_R.temperal_month}</div>
-			<div class="content" id="content_lv1_R">${monthly_diary_lv1_R.comment}</div>
-			<div class="content_summary" id="content_summary_lv1_R">${monthly_diary_lv1_R.Question}</div>
+			<div class="date" id="date_lv1_R">${monthly_diary_lv1_R.created_date}</div>
+			<div class="content" id="content_lv1_R">${monthly_diary_lv1_R.content}</div>
+			<div class="content_summary" id="content_summary_lv1_R">${monthly_diary_lv1_R.question}</div>
 
-			<div class="date" id="date_lv2_L">${monthly_diary_lv2_L.temperal_year}.${monthly_diary_lv2_L.temperal_month}</div>
-			<div class="content" id="content_lv2_L">${monthly_diary_lv2_L.comment}</div>
-			<div class="content_summary" id="content_summary_lv2_L">${monthly_diary_lv2_L.Question}</div>
+			<div class="date" id="date_lv2_L">${monthly_diary_lv2_L.created_date}</div>
+			<div class="content" id="content_lv2_L">${monthly_diary_lv2_L.content}</div>
+			<div class="content_summary" id="content_summary_lv2_L">${monthly_diary_lv2_L.question}</div>
 
-			<div class="date" id="date_lv2_R">${monthly_diary_lv2_R.temperal_year}.${monthly_diary_lv2_R.temperal_month}</div>
-			<div class="content" id="content_lv2_R">${monthly_diary_lv2_R.comment}</div>
-			<div class="content_summary" id="content_summary_lv2_R">${monthly_diary_lv2_R.Question}</div>
+			<div class="date" id="date_lv2_R">${monthly_diary_lv2_R.created_date}</div>
+			<div class="content" id="content_lv2_R">${monthly_diary_lv2_R.content}</div>
+			<div class="content_summary" id="content_summary_lv2_R">${monthly_diary_lv2_R.question}</div>
 
-			<div class="date" id="date_lv3_L">${monthly_diary_lv3_L.temperal_year}.${monthly_diary_lv3_L.temperal_month}</div>
-			<div class="content" id="content_lv3_L">${monthly_diary_lv3_L.comment}</div>
-			<div class="content_summary" id="content_summary_lv3_L">${monthly_diary_lv3_L.Question}</div>
+			<div class="date" id="date_lv3_L">${monthly_diary_lv3_L.created_date}</div>
+			<div class="content" id="content_lv3_L">${monthly_diary_lv3_L.content}</div>
+			<div class="content_summary" id="content_summary_lv3_L">${monthly_diary_lv3_L.question}</div>
 
-			<div class="date" id="date_lv3_R">${monthly_diary_lv3_R.temperal_year}.${monthly_diary_lv3_R.temperal_month}</div>
-			<div class="content" id="content_lv3_R">${monthly_diary_lv3_R.comment}</div>
-			<div class="content_summary" id="content_summary_lv3_R">${monthly_diary_lv3_R.Question}</div>
+			<div class="date" id="date_lv3_R">${monthly_diary_lv3_R.created_date}</div>
+			<div class="content" id="content_lv3_R">${monthly_diary_lv3_R.content}</div>
+			<div class="content_summary" id="content_summary_lv3_R">${monthly_diary_lv3_R.question}</div>
 
-			<div class="date" id="date_lv4_L">${monthly_diary_lv4_L.temperal_year}.${monthly_diary_lv4_L.temperal_month}</div>
-			<div class="content" id="content_lv4_L">${monthly_diary_lv4_L.comment}</div>
-			<div class="content_summary" id="content_summary_lv4_L">${monthly_diary_lv4_L.Question}</div>
+			<div class="date" id="date_lv4_L">${monthly_diary_lv4_L.created_date}</div>
+			<div class="content" id="content_lv4_L">${monthly_diary_lv4_L.content}</div>
+			<div class="content_summary" id="content_summary_lv4_L">${monthly_diary_lv4_L.question}</div>
 
-			<div class="date" id="date_lv4_R">${monthly_diary_lv4_R.temperal_year}.${monthly_diary_lv4_R.temperal_month}</div>
-			<div class="content" id="content_lv4_R">${monthly_diary_lv4_R.comment}</div>
-			<div class="content_summary" id="content_summary_lv4_R">${monthly_diary_lv4_R.Question}</div>
+			<div class="date" id="date_lv4_R">${monthly_diary_lv4_R.created_date}</div>
+			<div class="content" id="content_lv4_R">${monthly_diary_lv4_R.content}</div>
+			<div class="content_summary" id="content_summary_lv4_R">${monthly_diary_lv4_R.question}</div>
 			`;
 
-			var html = MA_template.monthly_mode_A_template(whos, content, id_number, focused_year, focused_month, focused_date); 
+			var html = MA_template.monthly_mode_A_template(whos, content, user_id, focused_year, focused_month, focused_date); 
 			res.send(html);
 		});
 }
 
+
 exports.MB = function(req, res){
 	var whos = req.params.id;
-	var id_number = req.body.id_number;
+	var user_id = req.body.user_id;
 	var focused_year = Number(req.query.year);
 	var focused_month = Number(req.query.month);
 	var focused_date = Number(req.query.date);
 			//당해년도~3년전 일기까지 총 4년치 보여주기(물론 당해년도 일기는 우측 분할화면에서 작성중임...
-		db.query(`SELECT * FROM daily_diary WHERE id_number=? AND temperal_year=? AND temperal_month=?`, [id_number, focused_year-0, focused_month], function(err, daily_diary){
-			var loaded_month = daily_diary[0].temperal_month;
+		db.query(`SELECT * FROM diary WHERE user_id=?
+			AND (YEAR(created_date)=?)
+			AND (MONTH(created_date)=?)
+			`, [user_id, focused_year-0, focused_month], function(err, daily_diary){
 
 			var i;
 			var content = ``;
 			for(i=0; i < daily_diary.length; i++){
 				content += `
-				<div class="content" id="content_${i}">${daily_diary[i].comment}</div>
+				<div class="content" id="content_${i}">${daily_diary[i].content}</div>
 				`;
 			}
 			var a = focused_year;
@@ -202,7 +206,7 @@ exports.MB = function(req, res){
 				}
 			}
 
-			var html = MB_template.monthly_mode_B_template(whos, content, calander, id_number, focused_year, focused_month, focused_date, daily_diary.length); 
+			var html = MB_template.monthly_mode_B_template(whos, content, calander, user_id, focused_year, focused_month, focused_date, daily_diary.length); 
 			res.send(html);
 		});
 }

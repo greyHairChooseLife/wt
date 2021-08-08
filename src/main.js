@@ -46,21 +46,21 @@ app.get('/', function(req, res){
 
 				<td>
 					<form action="/${user[i].nickname}/daily?year=${index_year}&month=${index_month}&date=${index_date}" method="post">
-						<input type="hidden" name="id" value="${user[i].id}">
+						<input type="hidden" name="user_id" value="${user[i].id}">
 						<input type="submit" value="일기 쓰기">
 					</form>
 				</td>
 
 				<td>
 					<form action="/${user[i].nickname}/test_data_generate" method="post">
-						<input type="hidden" name="id" value="${user[i].id}">
+						<input type="hidden" name="user_id" value="${user[i].id}">
 						<input type="submit" value="generate_test_date">
 					</form>
 				</td>
 
 				<td>
 					<form action="/delete_process" method="post">
-						<input type="hidden" name="id" value="${user[i].id}">
+						<input type="hidden" name="user_id" value="${user[i].id}">
 						<input type="submit" value="delete_user">
 					</form>
 				</td>
@@ -173,7 +173,7 @@ app.post('/create_process', function(req, res){
 //----------------------------------------------------------------------------------------------------------------//
 //----------------------------------------------------------------------------------------------------------------//
 app.post('/delete_process', function(req, res){
-	db.query(`DELETE FROM user WHERE id=?`, [req.body.id], function(err){
+	db.query(`DELETE FROM user WHERE id=?`, [req.body.user_id], function(err){
 		if(err) throw err;
 		res.redirect('/');
 	});

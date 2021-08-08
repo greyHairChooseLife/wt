@@ -2,7 +2,7 @@ const date_ob = new Date();
 const tools = require('../tools.js');
 
 module.exports = {
-	daily_template:function(title, content, id_number, focused_year, focused_month, focused_date){
+	daily_template:function(title, content, user_id, focused_year, focused_month, focused_date){
 
 		var changed_month_minus = tools.switch_onlyM_from_D(focused_date-1);
 		var changed_month_plus = tools.switch_onlyM_from_D(focused_date+1);
@@ -52,23 +52,23 @@ module.exports = {
 
 			<div id="move_buttons">
 				<form id="prevButton" method="post">
-					<input type="hidden" name="id_number" value="${id_number}">
+					<input type="hidden" name="user_id" value="${user_id}">
 					<input type="submit" name="up" value="전날">
 				</form>
 				<form id="nextButton" method="post">
-					<input type="hidden" name="id_number" value="${id_number}">
+					<input type="hidden" name="user_id" value="${user_id}">
 					<input type="submit" name="up" value="다음날">
 				</form>
 				<form id="upButton" method="post">
-					<input type="hidden" name="id_number" value="${id_number}">
+					<input type="hidden" name="user_id" value="${user_id}">
 					<input type="submit" name="up" value="지난해">
 				</form>
 				<form id="downButton" method="post">
-					<input type="hidden" name="id_number" value="${id_number}">
+					<input type="hidden" name="user_id" value="${user_id}">
 					<input type="submit" name="down" value="다음해">
 				</form>
 				<form id="todayButton" method="post">
-					<input type="hidden" name="id_number" value="${id_number}">
+					<input type="hidden" name="user_id" value="${user_id}">
 					<input type="submit" name="down" value="오늘로">
 				</form>
 			</div>
@@ -76,20 +76,20 @@ module.exports = {
 
 			<div id="navigator">
 				<form id="nav_daily" action="/${title}/daily?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
-					<input type="hidden" name="id_number" value="${id_number}">
+					<input type="hidden" name="user_id" value="${user_id}">
 					<input class="now" type="submit" value="daily">
 				</form>
 				<form id="nav_monthly" action="/${title}/monthly_mode_A?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
-					<input type="hidden" name="id" value="${id_number}">
+					<input type="hidden" name="user_id" value="${user_id}">
 					<input id="nav_m_button"  type="submit" value="monthly">
 				</form>
 				<form id="nav_annualy" action="/${title}/annualy?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
-					<input type="hidden" name="id_number" value="${id_number}">
+					<input type="hidden" name="user_id" value="${user_id}">
 					<input type="submit" value="annualy">
 				</form>
 			</div>
 
-			<form action="/${id_number}/daily_diary_upload" method="post">
+			<form action="/${user_id}/daily_diary_upload" method="post">
 				<div id="text_editor">
 					<p id="title">일<br>간<br><br>생<br>각</p>
 					<span id="fixer_label">fix it</span>
@@ -102,7 +102,7 @@ module.exports = {
 					<div id="comment_label">today's comment</div>
 					<textarea id="comment" name="daily_diary_comment" cols="37" rows="10"></textarea>
 
-					<input type="hidden" name="id_number" value=${id_number}>
+					<input type="hidden" name="user_id" value=${user_id}>
 					<div id="text_editor_fold">접기</div>
 				</div>
 			</form>
