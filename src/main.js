@@ -15,7 +15,12 @@ const H_template = require('./lib/template/H_template.js');
 
 //
 const app = express();
+const userRouter = require('./routers/user');
+const diaryRouter = require('./routers/diary');
 app.use(express.urlencoded());
+app.use('/user', userRouter);
+app.use('/diary', diaryRouter);
+
 
 
 //----------------------------------------------------------------------------------------------------------------//
@@ -206,8 +211,5 @@ app.post('/:id_number/monthly_diary_upload', function(req, res){
 });
 //----------------------------------------------------------------------------------------------------------------//
 //----------------------------------------------------------------------------------------------------------------//
-
-
-
 
 app.listen(9995);
