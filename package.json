@@ -2,7 +2,7 @@
 	"name": "5ydiary",
 	"description": "",
 	"scripts": {
-		"start": "node main.js"
+		"start": "node src/main.js"
 	},
 	"repository": "git",
 	"url": "",
