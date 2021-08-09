@@ -1,4 +1,4 @@
-const db = require('./db.js');
+const db = require('../config/db.js');
 const D_template = require('./template/D_template.js');
 const MA_template = require('./template/MA_template.js');
 const MB_template = require('./template/MB_template.js');

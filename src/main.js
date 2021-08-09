@@ -2,7 +2,7 @@
 const express = require('express');
 
 //DATABASE
-const db = require('./lib/db.js');
+const db = require('./config/db.js');
 
 //MODULE
 const diary = require('./lib/diary.js');
@@ -13,11 +13,12 @@ const tools = require('./lib/tools.js');
 const H_template = require('./lib/template/H_template.js');
 
 
-//
 const app = express();
+const adminRouter = require('./routers/admin');
 const userRouter = require('./routers/user');
 const diaryRouter = require('./routers/diary');
 app.use(express.urlencoded());
+app.use('/admin', adminRouter);
 app.use('/user', userRouter);
 app.use('/diary', diaryRouter);
 
