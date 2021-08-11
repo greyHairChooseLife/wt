@@ -15,12 +15,15 @@ const tools = require('./lib/tools.js');
 //TEMPLATE
 const H_template = require('./lib/template/H_template.js');
 
-
 const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 const adminRouter = require('./routers/admin');
 const userRouter = require('./routers/user');
 const diaryRouter = require('./routers/diary');
-app.use(express.urlencoded());
+
 app.use('/admin', adminRouter);
 app.use('/user', userRouter);
 app.use('/diary', diaryRouter);
