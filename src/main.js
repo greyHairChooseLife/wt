@@ -1,3 +1,6 @@
+require('dotenv').config();
+const { PORT } = process.env; // .env로 정보 유출을 방지 , env는 gitignore에 등록되어있습니다.
+
 //FRAMEWORK 
 const express = require('express');
 
@@ -213,4 +216,5 @@ app.post('/:id_number/monthly_diary_upload', function(req, res){
 //----------------------------------------------------------------------------------------------------------------//
 //----------------------------------------------------------------------------------------------------------------//
 
-app.listen(4000);
+const port = PORT || 3000; // PORT 값이 없다면 3000을 사용합니다.
+app.listen(port,()=>{console.log('Listening to port %d', port)});

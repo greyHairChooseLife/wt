@@ -1,4 +1,6 @@
 // 회원 관리에 jwt 토큰을 사용해야 할 것 같습니다.
+const db = require('../../config/db.js');
+
 exports.register = (req, res)=>{ // 회원 가입
     // todo
     // 1. email, password 값 존재 확인
@@ -7,6 +9,7 @@ exports.register = (req, res)=>{ // 회원 가입
     // 4. 이메일과 비밀번호를 db에 저장
     // 5. 다시 로그인 요청 혹은 자동 로그인
     // 6. / 로 리다이렉션,
+    
     console.log('register user');
     console.log(req);
     res.send('register');
