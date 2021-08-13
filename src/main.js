@@ -43,7 +43,20 @@ app.get('/', function(req, res){
 	if(user == undefined)
 		empty_or_not = 0;
 
-	var user_list = `<tr>`;
+	var user_list = `
+					
+					<form action="/user/register" method="post">
+						<input type="text" name="email" value="email@email.com">
+						<input type="hidden" name="pw" value="1">
+						<input type="text" name="nickname" value="nickname">
+						<input type="date" name="birthdate" value="">
+						<input type="hidden" name="sex" value="F">
+						<input type="hidden" name="address" value="abc">
+
+						<input type="submit" value="test">
+					</form>
+
+			<tr>`;
 
 	if(empty_or_not != 0){
 		for(var i = 0; i < user.length; i++)
