@@ -1,8 +1,8 @@
-// 회원 관리에 jwt 토큰을 사용해야 할 것 같습니다.
 const db = require('../../config/db.js');
 const Joi = require('joi');
 
-exports.register = (req, res) => { // 회원 가입
+// 회원 가입
+exports.register = (req, res) => {
     const schema = Joi.object().keys({
         email: Joi.string().email().required(),
         pw: Joi.string().required(),
@@ -19,24 +19,22 @@ exports.register = (req, res) => { // 회원 가입
     }
 
     const { email, pw, nickname, birthdate, sex, address } = req.body;
-    db.query(`SELECT email FROM user WHERE email = ?`, [req.body.email], (err, db_email) => {
+    db.query(`SELECT email FROM user WHERE email = ?`, [email], (err, db_email) => {
         if (err) { return res.status(500).send('email broke!'.err); }
-        if (db_email[0] != undefined) {
+        if (db_email[0]) {
             return res.status(409).send('이미 존재하는 이메일입니다.');
         }
-        db.query(`SELECT nickname FROM user WHERE nickname = ?`, [req.body.nickname], (err, db_nickname) => {
+        db.query(`SELECT nickname FROM user WHERE nickname = ?`, [nickname], (err, db_nickname) => {
             if (err) { return res.status(500).send('nickname broke!'.err); }
-            if (db_nickname[0] != undefined) {
+            if (db_nickname[0]) {
                 return res.status(409).send('이미 존재하는 닉네임입니다.');
             }
-            // 나중에는 암호와 모듈도 사용해야합니다. 비밀번호를 평문으로 저장하면 법적인 문제가...
 			db.query(`INSERT INTO user (email, pw, nickname, birthdate, sex, address, created_date) VALUES(?,?,?,?,?,?,NOW())`, [email, pw, nickname, birthdate, sex, address], (err) => {
 				if (err) return res.status(500).send('insert broke!'.err);
 				res.redirect('/');
 			});
     	});
     });
-    // 추후에 리팩토링 하면 더 깔끔하게 만들 수 있습니다. callback -> promise -> async/await 순으로 리팩토링 됩니다.
 }
 
 exports.edit = (req, res) => {
