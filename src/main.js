@@ -1,8 +1,11 @@
+require('dotenv').config();
+const { PORT } = process.env; // .env로 정보 유출을 방지 , env는 gitignore에 등록되어있습니다.
+
 //FRAMEWORK 
 const express = require('express');
 
 //DATABASE
-const db = require('./lib/db.js');
+const db = require('./config/db.js');
 
 //MODULE
 const diary = require('./lib/diary.js');
@@ -12,12 +15,16 @@ const tools = require('./lib/tools.js');
 //TEMPLATE
 const H_template = require('./lib/template/H_template.js');
 
-
-//
 const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+const adminRouter = require('./routers/admin');
 const userRouter = require('./routers/user');
 const diaryRouter = require('./routers/diary');
-app.use(express.urlencoded());
+
+app.use('/admin', adminRouter);
 app.use('/user', userRouter);
 app.use('/diary', diaryRouter);
 
@@ -36,7 +43,20 @@ app.get('/', function(req, res){
 	if(user == undefined)
 		empty_or_not = 0;
 
-	var user_list = `<tr>`;
+	var user_list = `
+					
+					<form action="/user/register" method="post">
+						<input type="text" name="email" value="email@email.com">
+						<input type="hidden" name="pw" value="1">
+						<input type="text" name="nickname" value="nickname">
+						<input type="date" name="birthdate" value="">
+						<input type="hidden" name="sex" value="F">
+						<input type="hidden" name="address" value="abc">
+
+						<input type="submit" value="test">
+					</form>
+
+			<tr>`;
 
 	if(empty_or_not != 0){
 		for(var i = 0; i < user.length; i++)
@@ -212,4 +232,5 @@ app.post('/:id_number/monthly_diary_upload', function(req, res){
 //----------------------------------------------------------------------------------------------------------------//
 //----------------------------------------------------------------------------------------------------------------//
 
-app.listen(4000);
+const port = PORT || 3000; // PORT 값이 없다면 3000을 사용합니다.
+app.listen(port,()=>{console.log('Listening to port %d', port)});

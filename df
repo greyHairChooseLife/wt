@@ -1,0 +1,117 @@
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 9b6bf14..5fce1af 100755[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -38,6 +38,6 @@[m
+ [m
+ 프로젝트 진행 순서[m
+ >>>기획 : 프로젝트 목적 공유, 프로그램 기능과 디자인 뼈대 정하기, 예상 일정(목표는 있지만 제작 성과에 따라 달라질 수 있을듯)[m
+[31m->>>제작 : 회원관리 라우터와 인터페이스 개발 -> 일기 라우터와 인터페이스[m
+[32m+[m[32m>>>제작 :[m[41m [m
+ >>>배포 : [m
+ >>>피드백반영, 리팩토링 : [m
+[1mdiff --git a/package.json b/package.json[m
+[1mindex 19a10b2..1b215c9 100755[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -2,7 +2,7 @@[m
+ 	"name": "5ydiary",[m
+ 	"description": "",[m
+ 	"scripts": {[m
+[31m-		"start": "node src/main.js"[m
+[32m+[m		[32m"start": "node main.js"[m
+ 	},[m
+ 	"repository": "git",[m
+ 	"url": "",[m
+[1mdiff --git a/src/routers/home/index.js b/src/routers/home/index.js[m
+[1mdeleted file mode 100644[m
+[1mindex e69de29..0000000[m
+[1mdiff --git a/src/routers/user/index.js b/src/routers/user/index.js[m
+[1mindex 81625b9..0fd453a 100644[m
+[1m--- a/src/routers/user/index.js[m
+[1m+++ b/src/routers/user/index.js[m
+[36m@@ -2,19 +2,9 @@[m [mconst express = require('express');[m
+ const userCtrl = require('./user.ctrl.js');[m
+ const userRouter = express.Router();[m
+ [m
+[31m-// todo[m
+[31m-// 1. 회원가입[m
+[31m-// 2. 로그인 [m
+[31m-// 3. 로그아웃[m
+[31m-// 4. 회원 정보 수정[m
+[31m-// 5. 회원탈퇴[m
+[31m-[m
+[31m-// 로그인 체크는 미들웨어로 구현해야함[m
+[31m-[m
+[31m-userRouter.post('/register', userCtrl.register);[m
+[31m-userRouter.post('/login', userCtrl.login);[m
+[31m-userRouter.post('/logout', userCtrl.logout);[m
+[31m-userRouter.post('/edit', userCtrl.edit);[m
+[31m-userRouter.post('/delete', userCtrl.delete);[m
+[32m+[m[32muserRouter.post('/', userCtrl.create);[m
+[32m+[m[32muserRouter.get('/:id', userCtrl.read);[m
+[32m+[m[32muserRouter.post('/:id', userCtrl.update);[m
+[32m+[m[32muserRouter.delete('/:id', userCtrl.delete);[m
+ [m
+ module.exports = userRouter;[m
+\ No newline at end of file[m
+[1mdiff --git a/src/routers/user/user.ctrl.js b/src/routers/user/user.ctrl.js[m
+[1mindex 0ea1c77..4a76348 100644[m
+[1m--- a/src/routers/user/user.ctrl.js[m
+[1m+++ b/src/routers/user/user.ctrl.js[m
+[36m@@ -1,43 +1,20 @@[m
+[31m-// 회원 관리에 jwt 토큰을 사용해야 할 것 같습니다.[m
+[31m-exports.register = (req, res)=>{ // 회원 가입[m
+[31m-    // todo[m
+[31m-    // 1. email, password 값 존재 확인[m
+[31m-    // 2. DB에 이메일이 이미 존재하는 검사[m
+[31m-    // 3. 없다면 이메일 인증시작[m
+[31m-    // 4. 이메일과 비밀번호를 db에 저장[m
+[31m-    // 5. 다시 로그인 요청 혹은 자동 로그인[m
+[31m-    // 6. / 로 리다이렉션,[m
+[31m-    console.log('register user');[m
+[32m+[m[32mexports.create = (req, res)=>{[m
+[32m+[m[32m    res.send('create');[m
+[32m+[m[32m    console.log('create user');[m
+     console.log(req);[m
+[31m-    res.send('register');[m
+ }[m
+[31m-exports.edit = (req, res)=>{[m
+[31m-    // 회원 정보 수정 구현[m
+[31m-    console.log('login user');[m
+[32m+[m[32mexports.read = (req, res)=>{[m
+[32m+[m[32m    res.send('read');[m
+[32m+[m[32m    console.log('read user');[m
+     console.log(req);[m
+[31m-    res.send('login');[m
+ }[m
+[31m-exports.login = (req, res)=>{ // 로그인, 세션에 로그인 정보를 저장[m
+[31m-    // todo[m
+[31m-    // 1. email, password 값 존재 확인[m
+[31m-    // 2. DB에 계정이 존재하는 검사[m
+[31m-    // 3. 계정이 존재한다면 password와 함께 다시 검색[m
+[31m-    // 4. 로그인 완료 토큰 발급[m
+[31m-    // 5. / 로 리다이렉션[m
+[31m-    console.log('login user');[m
+[32m+[m[32mexports.update = (req, res)=>{[m
+[32m+[m[32m    res.send('update');[m
+[32m+[m[32m    console.log('update user');[m
+     console.log(req);[m
+[31m-    res.send('login');[m
+ }[m
+[31m-exports.logout = (req, res)=>{ // 로그아웃, 세션 파괴[m
+[31m-    // todo[m
+[31m-    // 1. email, password 값 존재 확인[m
+[31m-    // 2. / 로 리다이렉션[m
+[31m-    console.log('logout user');[m
+[32m+[m[32mexports.delete = (req, res)=>{[m
+[32m+[m[32m    res.send('delete');[m
+[32m+[m[32m    console.log('delete user');[m
+     console.log(req);[m
+[31m-    res.send('logout');[m
+[31m-}[m
+[31m-exports.delete = (req, res)=>{ // 계정 삭제[m
+[31m-    console.log(req);[m
+[31m-    console.log('delete account');[m
+[31m-    res.send('delete account');[m
+ }[m
