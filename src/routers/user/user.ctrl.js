@@ -7,9 +7,9 @@ exports.register = (req, res) => {
         email: Joi.string().email().required(),
         pw: Joi.string().required(),
         nickname: Joi.string().required(),
-        sex: Joi.string().valid('M', 'F'),
-        address: Joi.string(),
-        birthdate: Joi.date(),
+        sex: Joi.string().valid('M', 'F').required(),
+        address: Joi.string().required(),
+        birthdate: Joi.date().required(),
     });
     const result = schema.validate(req.body);
     if (result.error) {
@@ -37,8 +37,8 @@ exports.register = (req, res) => {
     });
 }
 
+// 회원 정보 수정 구현
 exports.edit = (req, res) => {
-    // 회원 정보 수정 구현
     console.log('login user');
     console.log(req);
     res.send('login');

@@ -1,14 +1,14 @@
 const date_ob = new Date();
-const tools = require('../tools.js');
+const tools = require('../../../tools.js');
 
 module.exports = {
-	monthly_mode_B_template:function(title, content, calander, user_id, focused_year, focused_month, focused_date, daily_diary_length){
+	template:function(whos, content, calander, user_id, focused_year, focused_month, focused_date, daily_diary_length){
 
 		return `
 			<!doctype html>
 			<html>
 			<head>
-				<title>${title}'s diary</title>
+				<title>${whos}'s diary</title>
 				<meta charset="utf-8">
 			</head>
 			<body>
@@ -54,22 +54,22 @@ module.exports = {
 			</div>
 
 			<div id="navigator">
-				<form id="nav_daily" action="/${title}/daily?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
+				<form id="nav_daily" action="/diary/daily/${whos}?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
 					<input type="hidden" name="user_id" value="${user_id}">
 					<input class="now" type="submit" value="daily">
 				</form>
-				<form id="nav_monthly" action="/${title}/monthly_mode_B?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
+				<form id="nav_monthly" action="/diary/monthly_mode_B/${whos}?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
 					<input type="hidden" name="user_id" value="${user_id}">
 					<input id="nav_m_button"  type="submit" value="monthly">
 				</form>
-				<form id="nav_annualy" action="/${title}/annualy?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
+				<form id="nav_annualy" action="/diary/annualy/${whos}?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
 					<input type="hidden" name="user_id" value="${user_id}">
 					<input type="submit" value="annualy">
 				</form>
 			</div>
 
 			<div id="mode_A">
-				<form id="nav_daily" action="/${title}/monthly_mode_A?year=${focused_year}&month=${focused_month}&date=${tools.switch_M_to_first_D_of_M(focused_month)}" method="post">
+				<form id="nav_daily" action="/diary/monthly_mode_A/${whos}?year=${focused_year}&month=${focused_month}&date=${tools.switch_M_to_first_D_of_M(focused_month)}" method="post">
 					<input type="hidden" name="user_id" value="${user_id}">
 					<input class="now" type="submit" value="원래대로">
 				</form>
@@ -415,24 +415,24 @@ module.exports = {
 
 			document.getElementById("prevButton").onclick = function() {
 				if(${focused_month} != 1)
-					document.getElementById("prevButton").action = "/${title}/monthly_mode_B?year=${focused_year}&month=${focused_month-1}&date=${tools.switch_M_to_first_D_of_M(focused_month-1)}"
+					document.getElementById("prevButton").action = "/diary/monthly_mode_B/${whos}?year=${focused_year}&month=${focused_month-1}&date=${tools.switch_M_to_first_D_of_M(focused_month-1)}"
 				else if(${focused_month} == 1)
-					document.getElementById("prevButton").action = "/${title}/monthly_mode_B?year=${focused_year-1}&month=12&date=${tools.switch_M_to_first_D_of_M(12)}"
+					document.getElementById("prevButton").action = "/diary/monthly_mode_B/${whos}?year=${focused_year-1}&month=12&date=${tools.switch_M_to_first_D_of_M(12)}"
 			};
 			document.getElementById("nextButton").onclick = function() {
 				if(${focused_month} != 12)
-					document.getElementById("nextButton").action = "/${title}/monthly_mode_B?year=${focused_year}&month=${focused_month+1}&date=${tools.switch_M_to_first_D_of_M(focused_month+1)}"
+					document.getElementById("nextButton").action = "/diary/monthly_mode_B/${whos}?year=${focused_year}&month=${focused_month+1}&date=${tools.switch_M_to_first_D_of_M(focused_month+1)}"
 				else if(${focused_month} == 12)
-					document.getElementById("nextButton").action = "/${title}/monthly_mode_B?year=${focused_year+1}&month=1&date=${tools.switch_M_to_first_D_of_M(1)}"
+					document.getElementById("nextButton").action = "/diary/monthly_mode_B/${whos}?year=${focused_year+1}&month=1&date=${tools.switch_M_to_first_D_of_M(1)}"
 			};
 			document.getElementById("upButton").onclick = function() {
-				document.getElementById("upButton").action = "/${title}/monthly_mode_B?year=${focused_year-1}&month=${focused_month}&date=${focused_date}"
+				document.getElementById("upButton").action = "/diary/monthly_mode_B/${whos}?year=${focused_year-1}&month=${focused_month}&date=${focused_date}"
 			};
 			document.getElementById("downButton").onclick = function() {
-				document.getElementById("downButton").action = "/${title}/monthly_mode_B?year=${focused_year+1}&month=${focused_month}&date=${focused_date}"
+				document.getElementById("downButton").action = "/diary/monthly_mode_B/${whos}?year=${focused_year+1}&month=${focused_month}&date=${focused_date}"
 			};
 			document.getElementById("todayButton").onclick = function() {
-				document.getElementById("todayButton").action = "/${title}/monthly_mode_B?year="+today_year+"&month="+today_month+"&date=${focused_date}"
+				document.getElementById("todayButton").action = "/diary/monthly_mode_B/${whos}?year="+today_year+"&month="+today_month+"&date=${focused_date}"
 			};
 
 			var ii = 0;

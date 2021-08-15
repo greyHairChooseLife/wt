@@ -1,8 +1,8 @@
 const date_ob = new Date();
-const tools = require('../tools.js');
+const tools = require('../../../tools.js');
 
 module.exports = {
-	daily_template:function(title, content, user_id, focused_year, focused_month, focused_date){
+	template:function(whos, content, user_id, focused_year, focused_month, focused_date){
 
 		var changed_month_minus = tools.switch_onlyM_from_D(focused_date-1);
 		var changed_month_plus = tools.switch_onlyM_from_D(focused_date+1);
@@ -11,7 +11,7 @@ module.exports = {
 			<!doctype html>
 			<html>
 			<head>
-				<title>${title}'s diary</title>
+				<title>${whos}'s diary</title>
 				<meta charset="utf-8">
 			</head>
 			<body>
@@ -75,15 +75,15 @@ module.exports = {
 
 
 			<div id="navigator">
-				<form id="nav_daily" action="/${title}/daily?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
+				<form id="nav_daily" action="/diary/daily/${whos}?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
 					<input type="hidden" name="user_id" value="${user_id}">
 					<input class="now" type="submit" value="daily">
 				</form>
-				<form id="nav_monthly" action="/${title}/monthly_mode_A?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
+				<form id="nav_monthly" action="/diary/monthly_mode_A/${whos}?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
 					<input type="hidden" name="user_id" value="${user_id}">
 					<input id="nav_m_button"  type="submit" value="monthly">
 				</form>
-				<form id="nav_annualy" action="/${title}/annualy?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
+				<form id="nav_annualy" action="/diary/annualy/${whos}?year=${focused_year}&month=${focused_month}&date=${focused_date}" method="post">
 					<input type="hidden" name="user_id" value="${user_id}">
 					<input type="submit" value="annualy">
 				</form>
@@ -108,7 +108,7 @@ module.exports = {
 			</form>
 
 			<div id="text_editor_box">
-				<div id="text_editor_box_inner">
+				<div id="teet_editor_box_inner">
 				</div>
 			</div>
 
@@ -781,27 +781,27 @@ module.exports = {
 	
 			document.getElementById("prevButton").onclick = function() {
 				if(${focused_date} != 1)
-					document.getElementById("prevButton").action = "/${title}/daily?year=${focused_year}&month=${changed_month_minus}&date=${focused_date-1}"
+					document.getElementById("prevButton").action = "/diary/daily/${whos}?year=${focused_year}&month=${changed_month_minus}&date=${focused_date-1}"
 				else if(${focused_date} == 1)
-					document.getElementById("prevButton").action = "/${title}/daily?year=${focused_year-1}&month=12&date=365"
+					document.getElementById("prevButton").action = "/diary/daily/${whos}?year=${focused_year-1}&month=12&date=365"
 			};
 
 			document.getElementById("nextButton").onclick = function() {
 				if(${focused_date} != 365)
-					document.getElementById("nextButton").action = "/${title}/daily?year=${focused_year}&month=${changed_month_plus}&date=${focused_date+1}"
+					document.getElementById("nextButton").action = "/diary/daily/${whos}?year=${focused_year}&month=${changed_month_plus}&date=${focused_date+1}"
 				else if(${focused_date} == 365)
-					document.getElementById("nextButton").action = "/${title}/daily?year=${focused_year+1}&month=1&date=1"
+					document.getElementById("nextButton").action = "/diary/daily?/${whos}year=${focused_year+1}&month=1&date=1"
 			};
 
 			document.getElementById("upButton").onclick = function() {
-				document.getElementById("upButton").action = "/${title}/daily?year=${focused_year-1}&month=${focused_month}&date=${focused_date}"
+				document.getElementById("upButton").action = "/diary/daily/${whos}?year=${focused_year-1}&month=${focused_month}&date=${focused_date}"
 			};
 			document.getElementById("downButton").onclick = function() {
-				document.getElementById("downButton").action = "/${title}/daily?year=${focused_year+1}&month=${focused_month}&date=${focused_date}"
+				document.getElementById("downButton").action = "/diary/daily/${whos}?year=${focused_year+1}&month=${focused_month}&date=${focused_date}"
 			};
 
 			document.getElementById("todayButton").onclick = function() {
-				document.getElementById("todayButton").action = "/${title}/daily?year="+today_year+"&month="+today_month+"&date="+today_date
+				document.getElementById("todayButton").action = "/diary/daily/${whos}?year="+today_year+"&month="+today_month+"&date="+today_date
 			};
 
 

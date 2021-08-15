@@ -8,12 +8,10 @@ const express = require('express');
 const db = require('./config/db.js');
 
 //MODULE
-const diary = require('./lib/diary.js');
-const testing = require('./lib/test_data_generater_testing.js');
+//const diary = require('./lib/diary.js');
+const temp_tdg = require('./test_data_generater.js');
 const date_ob = new Date();
-const tools = require('./lib/tools.js');
-//TEMPLATE
-const H_template = require('./lib/template/H_template.js');
+const tools = require('./tools.js');
 
 const app = express();
 
@@ -30,8 +28,11 @@ app.use('/diary', diaryRouter);
 
 
 
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
+
+
+
+
+
 app.get('/', function(req, res){
 	db.query(`SELECT * FROM user`, function(err, user){
 
@@ -44,7 +45,6 @@ app.get('/', function(req, res){
 		empty_or_not = 0;
 
 	var user_list = `
-					
 					<form action="/user/register" method="post">
 						<input type="text" name="email" value="email@email.com">
 						<input type="hidden" name="pw" value="1">
@@ -55,7 +55,6 @@ app.get('/', function(req, res){
 
 						<input type="submit" value="test">
 					</form>
-
 			<tr>`;
 
 	if(empty_or_not != 0){
@@ -65,9 +64,9 @@ app.get('/', function(req, res){
 				<td>${user[i].nickname}</td>
 
 				<td>
-					<form action="/${user[i].nickname}/daily?year=${index_year}&month=${index_month}&date=${index_date}" method="post">
+					<form action="/diary/daily/${user[i].nickname}?year=${index_year}&month=${index_month}&date=${index_date}" method="post">
 						<input type="hidden" name="user_id" value="${user[i].id}">
-						<input type="submit" value="일기 쓰기">
+						<input type="submit" value="daily diary">
 					</form>
 				</td>
 
@@ -87,150 +86,65 @@ app.get('/', function(req, res){
 				</tr><tr>`;
 	}
 	user_list += `</tr>`;
-	var html = H_template.main_template(user_list);
+	var html = `
+		<!doctype html>
+		<html>
+		<head>
+			<title>5y diary</title>
+			<meta charset="utf-8">
+		</head>
+		<body>
+			<h1>5year diary</h1>
+			<h2>who's diary?</h2>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<p>
+				<a href="/create">create</a>
+			</p>
+			<table>
+				<tr>
+					<td>순번</td>
+					<td>이름</td>
+				</tr>
+				${user_list}
+			</table>
+		</body>
+		</html>
+		<style>
+			td {
+			border : solid; 1px;
+			}
+		</style>
+		`;
 	res.send(html);
 	});
 });
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
+
 app.post('/:id/test_data_generate', function(req, res){
-	testing.gen(req,res);
+	temp_tdg.gen(req,res);
 });
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
-app.get('/create', function(req, res){
-	var template = `
-			<!doctype html>
-			<html>
-			<head>
-				<title>5y diary</title>
-				<meta charset="utf-8">
-			</head>
-			<body>
-				<h1>5year diary</h1>
-				<h2>계정추가</h2>
-				<form action="/create_process" method="post">
-					<label>email
-						<input type="text" name="email" placeholder="email">
-					</label>
-					<br>
-					<br>
-					<label>pw
-						<input type="text" name="pw" placeholder="name">
-					</label>
-					<br>
-					<br>
-					<label>check it when you want kakaotoken >>>
-						<input type="checkbox" name="gen_kakaotoken">
-						<input type="hidden" name="kakaotoken" value="">
-					</label>
-					<br>
-					<br>
-					<label>nickname
-						<input type="text" name="nickname" placeholder="nickname">
-					</label>
-					<br>
-					<br>
-					<label>birthdate
-						<select name="birthdate_year">
-							<option value="1990">1990</option>
-							<option value="1991">1991</option>
-							<option value="1992">1992</option>
-						</select>
-						<select name="birthdate_month">
-							<option value="1">JAN</option>
-							<option value="2">FEB</option>
-							<option value="3">MAR</option>
-						</select>
-						<select id="fin" name="birthdate_date">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-						</select>
-					</label>
-					<br>
-					<br>
-					<label>sex
-						<select name="sex">
-							<option value="m">man</option>
-							<option value="w">woman</option>
-						</select>
-					</label>
-					<br>
-					<br>
-					<label>address
-						<input type="text" name="address" placeholder="address">
-					</label>
-					<br>
-					<br>
-					<br>
 
-					<input type="submit">
-				</form>
-			</html>
-			`;
-	res.send(template);
-});
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
-app.post('/create_process', function(req, res){
-	var taken = req.body;
-	var birthdate = taken.birthdate_year + ':' + taken.birthdate_date + ':' + taken.birthdate_date;
 
-	if(taken.kakaotoken == ''){
-		db.query(`INSERT INTO user (email, pw, nickname, birthdate, sex, address, created_date) VALUES(?, ?, ?, ?, ?, ?, now())`, [taken.email, taken.pw, taken.nickname, birthdate, taken.sex, taken.address], function(err){
-			if(err) throw err;
-			res.redirect('/');
-		});
-	}
-	else{
-		db.query(`INSERT INTO user (email, pw, kakaotoken, nickname, birthdate, sex, address, created_date) VALUES(?, ?, ?, ?, ?, ?, ?, now())`, [taken.email, taken.pw, taken.kakaotoken, taken.nickname, birthdate, taken.sex, taken.address], function(err){
-			if(err) throw err;
-			res.redirect('/');
-		});
-	}
-});
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
-app.post('/delete_process', function(req, res){
-	db.query(`DELETE FROM user WHERE id=?`, [req.body.user_id], function(err){
-		if(err) throw err;
-		res.redirect('/');
-	});
-});
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
-app.post('/:id/daily', function(req, res){
-	diary.D(req, res);
-});
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
+/*
 app.post('/:id_number/daily_diary_upload', function(req, res){
 	db.query(`INSERT INTO daily_diary (id_number, Question) VALUES(?, ?)`, [req.body.id_number, req.body.daily_diary_Question], function(err){
 		if(err) throw err;
 		res.redirect(`/`);
 	});
 });
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
-app.post('/:id/monthly_mode_A', function(req, res){
-	diary.MA(req, res);
-});
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
-app.post('/:id/monthly_mode_B', function(req, res){
-	diary.MB(req, res);
-});
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
+
+
 app.post('/:id_number/monthly_diary_upload', function(req, res){
 	db.query(`INSERT INTO monthly_diary (id_number, Question) VALUES(?, ?)`, [req.body.id_number, req.body.monthly_diary_Question], function(err){
 		if(err) throw err;
 		res.redirect(`/`);
 	});
 });
-//----------------------------------------------------------------------------------------------------------------//
-//----------------------------------------------------------------------------------------------------------------//
+*/
+
 
 const port = PORT || 3000; // PORT 값이 없다면 3000을 사용합니다.
 app.listen(port,()=>{console.log('Listening to port %d', port)});
