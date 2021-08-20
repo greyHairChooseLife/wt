@@ -2,18 +2,20 @@
 	"name": "5ydiary",
 	"description": "",
 	"scripts": {
-		"start": "node src/main.js"
+		"start": "node main.js"
 	},
 	"repository": "git",
 	"url": "",
 	"license": "ISC",
 	"dependencies": {
 		"dotenv": "^10.0.0",
+		"ejs": "^3.1.6",
 		"express": "^4.17.1",
 		"joi": "^17.4.2",
 		"jsonwebtoken": "^8.5.1",
 		"mariadb": "^2.5.4",
 		"mysql": "^2.18.1",
+		"mysql2": "^2.3.0",
 		"uuid": "^8.3.2"
 	}
 }
