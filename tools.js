@@ -108,7 +108,7 @@ module.exports = {
 
 		idx += date;
 
-		return (idx);
+		return (idx-1);
 	},
 	switch_M_to_first_D_of_M: function(idx){
 		if (idx == 1)

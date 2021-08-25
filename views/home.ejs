@@ -28,10 +28,31 @@
 					<input type="submit" value="delete_account">
 				</form>
 			</td>
+			<td>
+				<form action="/diary/gen/<%= user_list_id[i] %>" method="post">
+					<input type="submit" value="gen">
+				</form>
+			</td>
+			<td>
+				<form action="/diary/daily/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+					<input type="submit" value="daily_diary">
+				</form>
+			</td>
+			<td>
+				<form action="/diary/monthly_mode_A/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+					<input type="submit" value="monthly_mode_A_diary">
+				</form>
+			</td>
+			<td>
+				<form action="/diary/monthly_mode_B/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+					<input type="submit" value="monthly_mode_B_diary">
+				</form>
+			</td>
 		</tr>
 	<% } %>
 
 	</table>
+		<p>data load testing, from html</p>
 		<p>from html: <%= Object.keys(user_list_id).length %></p>
 		<p>from html: <%= index_year %></p>
 	<br>

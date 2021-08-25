@@ -1,25 +1,7 @@
-const date_ob = new Date();
-const tools = require('../../../tools.js');
-
-module.exports = {
 	template:function(whos, content, user_id, focused_year, focused_month, focused_date){
 
-		var changed_month_minus = tools.switch_onlyM_from_D(focused_date-1);
-		var changed_month_plus = tools.switch_onlyM_from_D(focused_date+1);
 
 		return `
-			<!doctype html>
-			<html>
-			<head>
-				<title>${whos}'s diary</title>
-				<meta charset="utf-8">
-			</head>
-			<body>
-
-			<div style="display: none">
-				<a href="/">home page</a>
-			</div>
-
 			<div class="container1">
 				${content}
 				<div id="background_color_1">

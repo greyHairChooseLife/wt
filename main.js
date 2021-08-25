@@ -4,20 +4,15 @@ const { PORT } = process.env; // .env로 정보 유출을 방지 , env는 gitign
 //FRAMEWORK 
 const express = require('express');
 
-//DATABASE
-const db = require('./config/db.js');
-
 //MODULE
 //const diary = require('./lib/diary.js');
-const temp_tdg = require('.//tester/test_data_generater.js');
-const date_ob = new Date();
-const tools = require('./tools.js');
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
+app.use(express.static('./public'));
 
 const adminRouter = require('./routers/adminRouter.js');
 const homeRouter = require('./routers/homeRouter.js');
@@ -30,9 +25,6 @@ app.use('/diary', diaryRouter);
 
 app.use('/admin', adminRouter);
 
-app.post('/:id/test_data_generate', function(req, res){
-	temp_tdg.gen(req,res);
-});
 
 
 /*

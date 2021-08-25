@@ -1,21 +1,10 @@
 const db = require('../config/db.js').promise();
 const Joi = require('joi');
-const jwt = require('jsonwebtoken');
 
+//middleware
+const checkLoggedIn = require('../middleware/checkLoggedIn.js');
+const generateToken = require('../middleware/generateToken.js');
 
-function generate_token(id, nickname) {
-    const token = jwt.sign(
-        {
-            id: id,
-            nickname: nickname
-        },
-        process.env.JWT_SECREAT,
-        {
-            expiresIn: '30d',
-        }
-    )
-    return token;
-}
 
 // 회원 가입
 const get_register = (req, res) => {
@@ -95,7 +84,7 @@ const post_edit = (req, res) => {
 const get_login = (req, res) => {
 	res.render('user/login', {});
 }
-const post_login = async (req, res) => { // 로그인, token에 로그인 정보를 저장
+const post_login = async (req, res) => {
     // todo 
     // 1. email, password 값 존재 확인 clear
     // 2. DB에 계정이 존재하는 검사 clear
@@ -106,7 +95,7 @@ const post_login = async (req, res) => { // 로그인, token에 로그인 정보
 	const { email, password } = req.body;
 
 	try{
-		const [db_taken] = await db.query(`SELECT email, pw, nickname, id FROM user WHERE email=?`, [email]);
+		const [db_taken] = await db.query(`SELECT id, email, pw, nickname, created_date FROM user WHERE email=?`, [email]);
 		// not registered
 		if(db_taken.length == 0)
 			return res.send("this email isn't registered yet.");
@@ -115,9 +104,9 @@ const post_login = async (req, res) => { // 로그인, token에 로그인 정보
 			return res.send("this password you entered is NOT match with the email.");
 		// success login,
 		// generate token
-		const token = generate_token(db_taken[0].id, db_taken[0].nickname);
+		const token = generateToken.generate_token(db_taken[0].id, db_taken[0].nickname, db_taken[0].created_date);
 		// send token as cookie(while there are various methods for different usages)
-		res.cookie('login_access_token_from_wt', token, {
+		res.cookie('login_access_token', token, {
 			maxAge: 1000 * 60 * 60 * 24 * 30, //30days
 			httpOnly: true
 		});
@@ -125,12 +114,11 @@ const post_login = async (req, res) => { // 로그인, token에 로그인 정보
 		const temp_logoutButton = `
 		<p>success login, this will expired in 30days!!
 		</p>
-
-		<form action="/user/get_cookie_test" method="post">
-			<p>how to?<br> 1.load page after login<br> 2.put conditional function showing anything while client can get cookie and it fits with server side<br><p>
-			<input type="submit" value="get_cookie_test">
+		
+		<form action="/user/cookie_test" method="post">
+			<input type="submit" value="cookie_test">
 		</form>
-
+		<br>
 
 		<form action="/user/logout" method="post">
 			<input type="submit" value="logout test">
@@ -142,26 +130,40 @@ const post_login = async (req, res) => { // 로그인, token에 로그인 정보
 		console.log(err);
 	}
 }
-//temp router for cookie_test
-const cookie = (req, res) => {
-	console.log(req.headers.cookie);
-	res.render('cookie', {});
+
+const post_cookie_test = (req, res) => {
+	const user_obj = checkLoggedIn.check_loggedIn(req);
+	console.log(user_obj);
+
+	res.send('good');
+}
+
+// 로그아웃
+const post_logout = (req, res) => {
+	if(checkLoggedIn.check_loggedIn(req)[1] == true){
+		const sender = `
+		<p>"logout success, the token at the client side is deleted."
+		</p>
+
+		<form action="/user/login" method="post">
+			<input type="text" name="email" value="email">
+			<input type="text" name="password" value="password">
+			<input type="submit" value="Log in">
+		</form>`;
+
+		res.clearCookie('login_access_token');
+		res.send(sender);
+	}
+	else{
+		res.send("you are not looged in.");
+	}
 }
 
 
-const post_logout = (req, res) => { // 로그아웃, 세션 파괴
-    // todo
-    // 1. email, password 값 존재 확인
-    // 2. / 로 리다이렉션
-
-	res.clearCookie('login_access_token_from_wt');
-	res.send("logout success, the token at the client side is deleted.");
-}
-
-const post_delete = (req, res) => { // 계정 삭제
-	db.query(`DELETE FROM user WHERE id='${req.params.id}'`)
-    res.redirect('/');
-}
+//const post_delete = (req, res) => { // 계정 삭제
+//	db.query(`DELETE FROM user WHERE id='${req.params.id}'`)
+//    res.redirect('/');
+//}
 
 module.exports = {
 	get_register,
@@ -172,8 +174,8 @@ module.exports = {
 	get_login,
 	post_login,
 
-	cookie,
+	post_cookie_test,
 
 	post_logout,
-	post_delete,
+	//post_delete,
 };
