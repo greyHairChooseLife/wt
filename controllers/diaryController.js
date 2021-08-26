@@ -34,6 +34,24 @@ const daily = async (req, res) => {
 		AND (DAY(created_date) BETWEEN ${date_from} AND ${date_to})
 		`, [user_id]);
 
+
+////////test data generated NOT in order. But it should be okay because real users write diary one by one, aka day by day, aka in order.
+
+//SELECT id, created_date, content, question FROM diary WHERE (user_id=1) AND (classes = 'd') AND (YEAR(created_date) BETWEEN '2018' AND '2021') AND (MONTH(created_date) = '8') AND (DAY(created_date) BETWEEN '25' AND '26');
+///////////////////////+------+---------------------+---------------------+----------------------+
+///////////////////////| id   | created_date        | content             | question             |
+///////////////////////+------+---------------------+---------------------+----------------------+
+///////////////////////| 3159 | 2018-08-25 00:00:00 | 2018-8-25's content | 2018-8-25's question |
+///////////////////////| 3160 | 2018-08-26 00:00:00 | 2018-8-26's content | 2018-8-26's question |
+///////////////////////| 3524 | 2019-08-25 00:00:00 | 2019-8-25's content | 2019-8-25's question |
+///////////////////////| 3525 | 2019-08-26 00:00:00 | 2019-8-26's content | 2019-8-26's question |
+///////////////////////| 3890 | 2020-08-25 00:00:00 | 2020-8-25's content | 2020-8-25's question |
+///////////////////////| 3891 | 2020-08-26 00:00:00 | 2020-8-26's content | 2020-8-26's question |
+///////////////////////| 4255 | 2021-08-26 00:00:00 | 2021-8-26's content | 2021-8-26's question |
+///////////////////////| 4256 | 2021-08-25 00:00:00 | 2021-8-25's content | 2021-8-25's question |
+///////////////////////+------+---------------------+---------------------+----------------------+
+		
+
 //////////
 ////////// can't use 'date_format' properly. date_format(somthing, some format) becomes the obj's key!!
 //////////
@@ -82,8 +100,11 @@ const daily = async (req, res) => {
 		index_year: focused_year,
 		index_month: focused_month,
 		index_date: focused_date,
+		user_id: user_id,
 	}
 
+	console.log(db_obj[0]);
+	console.log("====================================================================================================");
 	console.log(db_obj_ejs);
 
 	res.render('../views/diary/daily', db_obj_ejs);
@@ -143,6 +164,7 @@ const monthly_mode_A = async (req, res) => {
 		index_year: focused_year,
 		index_month: focused_month,
 		index_date: focused_date,
+		user_id: user_id,
 	}
 
 	console.log(db_obj_ejs);
@@ -178,6 +200,7 @@ const monthly_mode_B = async (req, res) => {
 	db_obj_ejs.index_year = focused_year;
 	db_obj_ejs.index_month = focused_month;
 	db_obj_ejs.index_date = focused_date;
+	db_obj_ejs.user_id = user_id;
 
 	console.log(db_obj_ejs);
 

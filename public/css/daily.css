@@ -1,4 +1,3 @@
-
 body {
 	margin: 0;
 	padding: 0;
@@ -8,6 +7,20 @@ body {
 	display: grid;
 	grid-template-columns: 45% 45% 10%;
 	grid-template-rows: 25vh 25vh 25vh 25vh;
+	user-select: none;
+}
+
+#navigate_button {
+	grid-column: 3/4;
+	grid-row: 1/3;
+}
+.navigate_button {
+	background-color: white;
+	margin-top: 2vh;
+	margin-left: 10%;
+	margin-right: 10%;
+	height: 5vh;
+	text-align: center;
 }
 
 #dragdrop_even_taget {
@@ -15,6 +28,7 @@ body {
 	grid-row: 1/5;
 	margin: 2%;
 }
+
 .note {
 	margin: 3%;
 }
@@ -71,5 +85,5 @@ body {
 #side_bar {
 	grid-column: 3/4;
 	grid-row: 1/5;
-	background-color: red;
+	background-color: grey;
 }

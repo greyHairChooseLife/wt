@@ -1,3 +1,5 @@
+const navigate_page = document.getElementById('navigate_page');
+
 
 const dragdrop_even_taget = document.getElementById('dragdrop_even_taget');
 const date_class = document.getElementsByClassName('date');
@@ -48,3 +50,10 @@ const R4_question = document.getElementById('R4_question');
 
 const arr_question = [L1_question, L2_question, L3_question, L4_question, R1_question, R2_question, R3_question, R4_question];
 
+const up_button = document.getElementById("up_button");
+const down_button = document.getElementById("down_button");
+const left_button = document.getElementById("left_button");
+const right_button = document.getElementById("right_button");
+const today_button = document.getElementById("today_button");
+
+const arr_button = [up_button, down_button, left_button, right_button, today_button];

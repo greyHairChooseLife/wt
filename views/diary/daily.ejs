@@ -47,8 +47,48 @@
 	</div>
 	<div id="side_bar">
 	</div>
+
+	<div id="navigate_button">
+		<div class="navigate_button" id="up_button">
+		UP
+		</div>
+		<div class="navigate_button" id="down_button">
+		DOWN
+		</div>
+		<div class="navigate_button" id="left_button">
+		LEFT
+		</div>
+		<div class="navigate_button" id="right_button">
+		RIGHT
+		</div>
+		<div class="navigate_button" id="today_button">
+		TODAY
+		</div>
+	</div>
 </div>
+
+<form id="navigate_page" action="" method="post">
+	<input type="hidden" name="" value="">
+</form>
+
+
+
+<% let index_year_ = index_year; %>
+<% let index_month_ = index_month; %>
+<% let index_date_ = index_date; %>
+<% let user_id_ = user_id; %>
+
+<%# comment: When I tried to define variables below at alias.js file, I couldn't use ejs tag to get argument(which is object) from res.render method. %>
+<script>
+	const index_year = <%= index_year_ %>;
+	const index_month = <%= index_month_ %>;
+	const index_date = <%= index_date_ %>;
+	const user_id = <%= user_id_ %>;
+</script>
+
 
 <script type="text/javascript" src="/js/daily/alias.js"></script>
 <script type="text/javascript" src="/js/daily/public_event.js"></script>
+<script type="text/javascript" src="/js/daily/navigation.js"></script>
 <script type="text/javascript" src="/js/daily/navigation_dragdrop.js"></script>
+<script type="text/javascript" src="/js/daily/navigation_button.js"></script>
