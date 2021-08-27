@@ -1,17 +1,17 @@
 up_button.addEventListener("click", function(){
-	selected_direction = 'up';
-	move(selected_direction);
-});
-down_button.addEventListener("click", function(){
 	selected_direction = 'down';
 	move(selected_direction);
 });
+down_button.addEventListener("click", function(){
+	selected_direction = 'up';
+	move(selected_direction);
+});
 left_button.addEventListener("click", function(){
-	selected_direction = 'left';
+	selected_direction = 'right';
 	move(selected_direction);
 });
 right_button.addEventListener("click", function(){
-	selected_direction = 'right';
+	selected_direction = 'left';
 	move(selected_direction);
 });
 today_button.addEventListener("click", function(){

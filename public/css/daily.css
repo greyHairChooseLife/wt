@@ -23,6 +23,31 @@ body {
 	text-align: center;
 }
 
+#keyboard_shortcut_help {
+	grid-column: 3/4;
+	grid-row: 3/4;
+	background-color: green;
+	margin-top: 2vh;
+	margin-left: 10%;
+	margin-right: 10%;
+	height: 5vh;
+	text-align: center;
+}
+
+#keyboard_shortcut_help_result {
+	z-index: 9999;
+	position: absolute;
+	left: 10%;
+	top: 10vh;
+	width: 70%;
+	height: 80vh;
+	background-color: green;
+	color: white;
+	font-size: 40px;
+	text-align: center;
+	display: none;
+}
+
 #dragdrop_even_taget {
 	grid-column: 1/3;
 	grid-row: 1/5;

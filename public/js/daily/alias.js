@@ -1,6 +1,9 @@
+const keyboard_shortcut_help = document.getElementById("keyboard_shortcut_help");
+const keyboard_shortcut_help_result = document.getElementById("keyboard_shortcut_help_result");
+
 const navigate_page = document.getElementById('navigate_page');
 
-
+const everything = document.getElementById('window');
 const dragdrop_even_taget = document.getElementById('dragdrop_even_taget');
 const date_class = document.getElementsByClassName('date');
 const content_class = document.getElementsByClassName('content');

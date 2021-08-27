@@ -65,6 +65,38 @@
 		TODAY
 		</div>
 	</div>
+
+	<div id="keyboard_shortcut_help">
+	keyboard_shortcut
+	<br>
+	help
+	</div>
+</div>
+
+<div id="keyboard_shortcut_help_result">
+<br>
+<br>
+"Navigate your note WITH"
+<br>
+: Shift + ArrowKey
+<br>
+<br>
+<br>
+"Select your note's WITH"
+<br>
+(left-side)
+: Shift + [1 q a z]
+<br>
+(right-side)
+: Shift + [2 w s x]
+<br>
+<br>
+...and then...
+<br>
+<br>
+"Open & Close red-line selected note's content WITH"
+<br>
+: Enter
 </div>
 
 <form id="navigate_page" action="" method="post">
@@ -78,7 +110,7 @@
 <% let index_date_ = index_date; %>
 <% let user_id_ = user_id; %>
 
-<%# comment: When I tried to define variables below at alias.js file, I couldn't use ejs tag to get argument(which is object) from res.render method. %>
+<%# comment: When I tried to define variables below at alias.js file(which is inserted in this.ejs), I couldn't use ejs tag to get argument(which is object) from res.render method %>
 <script>
 	const index_year = <%= index_year_ %>;
 	const index_month = <%= index_month_ %>;
@@ -92,3 +124,4 @@
 <script type="text/javascript" src="/js/daily/navigation.js"></script>
 <script type="text/javascript" src="/js/daily/navigation_dragdrop.js"></script>
 <script type="text/javascript" src="/js/daily/navigation_button.js"></script>
+<script type="text/javascript" src="/js/daily/navigation_keyboard.js"></script>
