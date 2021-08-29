@@ -1,0 +1,48 @@
+<head>
+	<link rel="stylesheet" href="/css/daily_style.css">
+</head>
+
+<div id="window">
+test
+	<div id="L1">
+	<div id="L2">
+	<div id="L3">
+	<div id="L4">
+	<div id="R1">
+	<div id="R2">
+	<div id="R3">
+	<div id="R4">
+	</div>
+</div>
+
+
+<div class="L1" id="L1_date"><%= L1_date %></div>
+<div class="L2" id="L2_date"><%= L2_date %></div>
+<div class="L3" id="L3_date"><%= L3_date %></div>
+<div class="L4" id="L4_date"><%= L4_date %></div>
+
+<div class="L1" id="L1_content"><%= L1_content %></div>
+<div class="L2" id="L2_content"><%= L2_content %></div>
+<div class="L3" id="L3_content"><%= L3_content %></div>
+<div class="L4" id="L4_content"><%= L4_content %></div>
+
+<div class="L1" id="L1_question"><%= L1_question %></div>
+<div class="L2" id="L2_question"><%= L2_question %></div>
+<div class="L3" id="L3_question"><%= L3_question %></div>
+<div class="L4" id="L4_question"><%= L4_question %></div>
+
+
+<div class="R1" id="R1_date"><%= R1_date %></div>
+<div class="R2" id="R2_date"><%= R2_date %></div>
+<div class="R3" id="R3_date"><%= R3_date %></div>
+<div class="R4" id="R4_date"><%= R4_date %></div>
+
+<div class="R1" id="R1_content"><%= R1_content %></div>
+<div class="R2" id="R2_content"><%= R2_content %></div>
+<div class="R3" id="R3_content"><%= R3_content %></div>
+<div class="R4" id="R4_content"><%= R4_content %></div>
+
+<div class="R1" id="R1_question"><%= R1_question %></div>
+<div class="R2" id="R2_question"><%= R2_question %></div>
+<div class="R3" id="R3_question"><%= R3_question %></div>
+<div class="R4" id="R4_question"><%= R4_question %></div>

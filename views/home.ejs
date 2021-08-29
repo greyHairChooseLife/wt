@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+	<title>5y diary</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<h1>5year diary</h1>
+	<h2>who's diary?</h2>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<table>
+		<tr>
+			<td>순번</td>
+			<td>이름</td>
+		</tr>
+
+	<% for(var i=0; i < Object.keys(user_list_id).length; i++){ %>
+		<tr>
+			<td>
+			<%= user_list_nickname[i] %>
+			</td>
+			<td>
+				<form action="/user/delete/<%= user_list_id[i] %>" method="post">
+					<input type="submit" value="delete_account">
+				</form>
+			</td>
+			<td>
+				<form action="/diary/gen/<%= user_list_id[i] %>" method="post">
+					<input type="submit" value="gen">
+				</form>
+			</td>
+			<td>
+				<form action="/diary/daily/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+					<input type="submit" value="daily_diary">
+				</form>
+			</td>
+			<td>
+				<form action="/diary/monthly_mode_A/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+					<input type="submit" value="monthly_mode_A_diary">
+				</form>
+			</td>
+			<td>
+				<form action="/diary/monthly_mode_B/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+					<input type="submit" value="monthly_mode_B_diary">
+				</form>
+			</td>
+		</tr>
+	<% } %>
+
+	</table>
+		<p>data load testing, from html</p>
+		<p>from html: <%= Object.keys(user_list_id).length %></p>
+		<p>from html: <%= index_year %></p>
+	<br>
+	<br>
+	<br>
+	<br>
+
+</body>
+</html>
+
+<style>
+	td {
+	border : solid; 1px;
+	}
+</style>
+
+<script>
+	var obj = "<%= JSON.stringify(user_list_id) %>";
+	obj = obj.replaceAll('&#34;', '\"');
+	obj = JSON.parse(obj);
+
+	document.write('data load testing, from script: ', obj[0]);
+
+
+</script>
