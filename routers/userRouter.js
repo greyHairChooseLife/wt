@@ -19,9 +19,15 @@ userRouter.post('/edit/:id', userController.post_edit);
 userRouter.get('/login', userController.get_login);
 userRouter.post('/login', userController.post_login);
 
-userRouter.post('/cookie_test', userController.post_cookie_test);
-
 userRouter.post('/logout', userController.post_logout);
-//userRouter.post('/delete/:id', userController.post_delete);
+userRouter.post('/delete/:id', userController.post_delete);
+
+//////// cookie test
+//////// cookie test
+//////// cookie test
+//////// cookie test
+//////// cookie test
+//////// cookie test
+userRouter.post('/cookie_test', userController.post_cookie_test);
 
 module.exports = userRouter;

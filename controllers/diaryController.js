@@ -15,6 +15,7 @@ const daily = async (req, res) => {
 	const focused_year = Number(req.query.year);
 	const focused_month = Number(req.query.month);
 	const focused_date = Number(req.query.date);
+	//const index = [user_id, focused_year, focused_month, focused_date];
 
 	const year_from = "'" + (focused_year-3) + "'";
 	const year_to = "'" + focused_year + "'";
@@ -97,15 +98,13 @@ const daily = async (req, res) => {
 		R3_question : db_obj[0][5].question,
 		R4_question : db_obj[0][7].question,
 
+		//index : index,
 		index_year: focused_year,
 		index_month: focused_month,
 		index_date: focused_date,
 		user_id: user_id,
-	}
 
-	console.log(db_obj[0]);
-	console.log("====================================================================================================");
-	console.log(db_obj_ejs);
+	}
 
 	res.render('../views/diary/daily', db_obj_ejs);
 }

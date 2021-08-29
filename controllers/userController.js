@@ -10,7 +10,7 @@ const generateToken = require('../middleware/generateToken.js');
 const get_register = (req, res) => {
 	res.render('user/register');
 }
-const post_register = (req, res) => {
+const post_register = async (req, res) => {
     const schema = Joi.object().keys({
         email: Joi.string().email().required(),
         password: Joi.string().required(),
@@ -33,16 +33,12 @@ const post_register = (req, res) => {
 
     const { email, password, nickname, birthdate, sex, address } = req.body;
 
-    db.query(`SELECT email FROM user WHERE email = ?`, [email], (err, db_email) => {
-        if (err) { return res.status(500).send('email broke!'.err); }
-        if (db_email[0]) {
-            return res.status(409).send('이미 존재하는 이메일입니다.');
-        }
-		db.query(`INSERT INTO user (email, pw, nickname, birthdate, sex, address, created_date) VALUES(?,?,?,?,?,?,NOW())`, [email, password, nickname, birthdate, sex, address], (err) => {
-			if (err) return res.status(500).send('insert broke!'.err);
+    const db_email = await db.query(`SELECT email FROM user WHERE email=?`, [email]);
+        if (db_email[0].length > 0) { return res.status(409).send('이미 존재하는 이메일입니다.'); }
+		else{
+			db.query(`INSERT INTO user (email, pw, nickname, birthdate, sex, address, created_date) VALUES(?,?,?,?,?,?,NOW())`, [email, password, nickname, birthdate, sex, address]);
 			res.redirect('/');
-		});
-    });
+		}
 }
 
 // 회원 정보 수정
@@ -50,7 +46,7 @@ const get_edit = (req, res) => {
 	const id = req.params.id;
 	res.render('user/edit', {id: id});
 }
-const post_edit = (req, res) => {
+const post_edit = async (req, res) => {
     const schema = Joi.object().keys({
         password: Joi.string().required(),
         password_check: Joi.string().required(),
@@ -72,26 +68,17 @@ const post_edit = (req, res) => {
 
     const { password, nickname, birthdate, sex, address } = req.body;
 
-	db.query(`UPDATE user SET pw='${password}', nickname='${nickname}', birthdate='${birthdate}', sex='${sex}', address='${address}' WHERE id='${req.params.id}'`, (err) => {
-
 	//query uder this line dosn't work. i can't use '[ ]' and '?' syntax 
-	//db.query(`UPDATE user SET (pw, nickname, birthdate, sex, address) VALUES(?,?,?,?,?) WHERE id = '${req.params.id}'`, [password, nickname, birthdate, sex, address], (err) => {
-		if (err) return res.status(500).send('insert broke!'.err);
+	//const edit_result = await db.query(`UPDATE user SET (pw=?, nickname=?, birthdate=?, sex=?, address=?) VALUES(?,?,?,?,?) WHERE id = '${req.params.id}'`, [password, nickname, birthdate, sex, address]);
+	const edit_result = await db.query(`UPDATE user SET pw='${password}', nickname='${nickname}', birthdate='${birthdate}', sex='${sex}', address='${address}' WHERE id='${req.params.id}'`);
+	if(edit_result != undefined)
 		res.redirect('/');
-	});
 }
 
 const get_login = (req, res) => {
 	res.render('user/login', {});
 }
 const post_login = async (req, res) => {
-    // todo 
-    // 1. email, password 값 존재 확인 clear
-    // 2. DB에 계정이 존재하는 검사 clear
-    // 3. 계정이 존재한다면 password와 함께 다시 검색clear
-    // 4. 로그인 완료 토큰 발급 clear
-    // 5. / 로 리다이렉션
-
 	const { email, password } = req.body;
 
 	try{
@@ -111,31 +98,15 @@ const post_login = async (req, res) => {
 			httpOnly: true
 		});
 
-		const temp_logoutButton = `
-		<p>success login, this will expired in 30days!!
-		</p>
-		
-		<form action="/user/cookie_test" method="post">
-			<input type="submit" value="cookie_test">
-		</form>
-		<br>
+		const obj_ejs = {
+			nickname: db_taken[0].nickname,
+		}
 
-		<form action="/user/logout" method="post">
-			<input type="submit" value="logout test">
-		</form>`;
-
-		return res.send(temp_logoutButton);
+		return res.render('user/after_login_success', obj_ejs);
 	}
 	catch(err){
 		console.log(err);
 	}
-}
-
-const post_cookie_test = (req, res) => {
-	const user_obj = checkLoggedIn.check_loggedIn(req);
-	console.log(user_obj);
-
-	res.send('good');
 }
 
 // 로그아웃
@@ -155,15 +126,37 @@ const post_logout = (req, res) => {
 		res.send(sender);
 	}
 	else{
-		res.send("you are not looged in.");
+		res.send("you are not loged in.");
 	}
 }
 
+const post_delete = async (req, res) => { // 계정 삭제
+	const delete_result = await db.query(`DELETE FROM user WHERE id='${req.params.id}'`);
+	if(delete_result != undefined)
+		res.redirect('/');
+}
 
-//const post_delete = (req, res) => { // 계정 삭제
-//	db.query(`DELETE FROM user WHERE id='${req.params.id}'`)
-//    res.redirect('/');
-//}
+
+//////////////////////////// cookie generation test
+//////////////////////////// cookie generation test
+//////////////////////////// cookie generation test
+//////////////////////////// cookie generation test
+//////////////////////////// cookie generation test
+//////////////////////////// cookie generation test
+//////////////////////////// cookie generation test
+const post_cookie_test = (req, res) => {
+	const user_obj = checkLoggedIn.check_loggedIn(req);
+	console.log(user_obj[0]);
+
+	const msg = `Yes, your cookie is generated like you can see at console.log`
+
+	let individualized_text = msg;
+	for(var i=0; i<1000; i++)
+		individualized_text += String(user_obj[0].id);
+
+	res.send(individualized_text);
+}
+
 
 module.exports = {
 	get_register,
@@ -177,5 +170,5 @@ module.exports = {
 	post_cookie_test,
 
 	post_logout,
-	//post_delete,
+	post_delete,
 };

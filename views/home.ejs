@@ -3,6 +3,7 @@
 <head>
 	<title>5y diary</title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
 	<h1>5year diary</h1>
@@ -12,10 +13,19 @@
 	<br>
 	<br>
 	<br>
+	<br>
+	<form action="/user/register" method="get">
+		<input id="register" type="submit" value="register">
+	</form>
+	<br>
+	<br>
+	<br>
 	<table>
 		<tr>
-			<td>순번</td>
-			<td>이름</td>
+			<td>nickname</td>
+		</tr>
+		<tr>
+		<td style="border: none;"><br></td>
 		</tr>
 
 	<% for(var i=0; i < Object.keys(user_list_id).length; i++){ %>
@@ -30,7 +40,7 @@
 			</td>
 			<td>
 				<form action="/diary/gen/<%= user_list_id[i] %>" method="post">
-					<input type="submit" value="gen">
+					<input type="submit" value="dummy data generate">
 				</form>
 			</td>
 			<td>
@@ -48,13 +58,18 @@
 					<input type="submit" value="monthly_mode_B_diary">
 				</form>
 			</td>
+			<td>
+				<form action="/user/login" method="get">
+					<input type="submit" value="login">
+				</form>
+			</td>
 		</tr>
 	<% } %>
-
 	</table>
-		<p>data load testing, from html</p>
-		<p>from html: <%= Object.keys(user_list_id).length %></p>
-		<p>from html: <%= index_year %></p>
+
+	<p>data load testing, from html</p>
+	<p>from html: <%= Object.keys(user_list_id).length %></p>
+	<p>from html: <%= index_year %></p>
 	<br>
 	<br>
 	<br>
@@ -75,6 +90,4 @@
 	obj = JSON.parse(obj);
 
 	document.write('data load testing, from script: ', obj[0]);
-
-
 </script>

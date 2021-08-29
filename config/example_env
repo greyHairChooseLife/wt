@@ -1,0 +1,6 @@
+PORT=5000
+DB_HOST=121.191.24.142
+DB_USER=wt_dev
+DB_PW=0000
+DB=wt
+JWT_SECREAT=ascnmnSEDHOFIUncekjkjcan23fn2Ncsdfklja
