@@ -4,6 +4,7 @@ const { PORT } = process.env; // .env로 정보 유출을 방지 , env는 gitign
 //FRAMEWORK 
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const passport = require('passport');
 
 //MODULE
 const jwtMiddleware = require('./middleware/jwtMiddleware.js');
@@ -13,9 +14,11 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
+app.use(passport.initialize());
 app.use(jwtMiddleware);
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
+
 
 
 const adminRouter = require('./routers/adminRouter.js');
