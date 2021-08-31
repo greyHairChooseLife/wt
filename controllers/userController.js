@@ -2,8 +2,6 @@ const db = require('../config/db.js').promise();
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 
-
-
 const generate_token = (id, nickname, created_date) => {
 	const token = jwt.sign(
 		{

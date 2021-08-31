@@ -1,13 +1,16 @@
 <!doctype html>
 <html>
+
 <head>
 	<title>5y diary</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="/css/home.css">
 </head>
+
 <body>
 	<h1>5year diary</h1>
 	<h2>who's diary?</h2>
+	<%= locals.user.nickname %>
 	<br>
 	<br>
 	<br>
@@ -25,13 +28,13 @@
 			<td>nickname</td>
 		</tr>
 		<tr>
-		<td style="border: none;"><br></td>
+			<td style="border: none;"><br></td>
 		</tr>
 
-	<% for(var i=0; i < Object.keys(user_list_id).length; i++){ %>
+		<% for(var i=0; i < Object.keys(user_list_id).length; i++){ %>
 		<tr>
 			<td>
-			<%= user_list_nickname[i] %>
+				<%= user_list_nickname[i] %>
 			</td>
 			<td>
 				<form action="/user/delete/<%= user_list_id[i] %>" method="post">
@@ -44,17 +47,23 @@
 				</form>
 			</td>
 			<td>
-				<form action="/diary/daily/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+				<form
+					action="/diary/daily/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>"
+					method="post">
 					<input type="submit" value="daily_diary">
 				</form>
 			</td>
 			<td>
-				<form action="/diary/monthly_mode_A/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+				<form
+					action="/diary/monthly_mode_A/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>"
+					method="post">
 					<input type="submit" value="monthly_mode_A_diary">
 				</form>
 			</td>
 			<td>
-				<form action="/diary/monthly_mode_B/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+				<form
+					action="/diary/monthly_mode_B/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>"
+					method="post">
 					<input type="submit" value="monthly_mode_B_diary">
 				</form>
 			</td>
@@ -64,7 +73,7 @@
 				</form>
 			</td>
 		</tr>
-	<% } %>
+		<% } %>
 	</table>
 
 	<p>data load testing, from html</p>
@@ -76,11 +85,12 @@
 	<br>
 
 </body>
+
 </html>
 
 <style>
 	td {
-	border : solid; 1px;
+		border: solid 1px;
 	}
 </style>
 

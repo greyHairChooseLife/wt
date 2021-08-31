@@ -10,6 +10,8 @@ const jwtMiddleware = (req, res, next) => {
             nickname: decoded.nickname,
 			created_date: decoded.created_date,
         }
+        res.locals.loggedIn = true;
+        
         return next();
     } catch (e) {
         return next();
