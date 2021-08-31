@@ -1,0 +1,18 @@
+{
+	"presets": [
+		[
+			"@babel/preset-env", {
+				"targets": {
+					"browsers": ["last 2 versions", ">= 0.25% in KR"]
+				}
+			}
+		]
+		,
+		 "@babel/preset-react"
+	],
+	
+	"plugins": [
+		"@babel/plugin-transform-template-literals",
+		"@babel/plugin-transform-arrow-functions"
+	]
+}
