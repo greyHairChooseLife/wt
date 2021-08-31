@@ -2,17 +2,7 @@ const db = require('../config/db.js').promise();
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 
-const passport = require('passport');
-const KakaoStrategy = require('passport-kakao').Strategy;
 
-passport.use(new KakaoStrategy({
-	clientID: 'a12f484bc5f99c168cbbe33069820a0d',
-	callbackURL: 'http://localhost:5000/user/kakao/login/auth'
-}, async (accessToken, refreshToken, profile, done) => {
-		console.log('카카오 로그인', accessToken, profile);
-		return done(null, '성공');
-	}
-));
 
 const generate_token = (id, nickname, created_date) => {
 	const token = jwt.sign(
