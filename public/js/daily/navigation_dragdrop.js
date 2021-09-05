@@ -62,9 +62,9 @@ function select_direction(compared_x, compared_y){
 			return;
 		}
 		if(x1 > x2)
-			selected_direction = 'left';
+			return selected_direction = 'left';
 		else
-			selected_direction = 'right';
+			return selected_direction = 'right';
 	}
 	else
 		if(compared_y < window.innerHeight * 0.1 ){
@@ -72,8 +72,8 @@ function select_direction(compared_x, compared_y){
 			return;
 		}
 		if(y1 > y2)
-			selected_direction = 'up';
+			return selected_direction = 'up';
 		else
-			selected_direction = 'down';
+			return selected_direction = 'down';
 }
 
