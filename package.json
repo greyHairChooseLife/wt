@@ -2,12 +2,14 @@
 	"name": "5ydiary",
 	"description": "",
 	"scripts": {
-		"start": "node main.js"
+		"start": "node main.js",
+		"dev": "nodemon --watch main.js"
 	},
 	"repository": "git",
 	"url": "",
 	"license": "ISC",
 	"dependencies": {
+		"cookie-parser": "1.4.5",
 		"dotenv": "^10.0.0",
 		"ejs": "^3.1.6",
 		"express": "^4.17.1",
@@ -16,6 +18,11 @@
 		"mariadb": "^2.5.4",
 		"mysql": "^2.18.1",
 		"mysql2": "^2.3.0",
+		"passport": "0.4.1",
+		"passport-kakao": "1.0.1",
 		"uuid": "^8.3.2"
+	},
+	"devDependencies": {
+		"nodemon": "2.0.12"
 	}
 }

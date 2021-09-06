@@ -4,7 +4,7 @@ const tools = require('../tools.js');
 
 
 module.exports = {
-	gen: function(req, res){
+	gen: function (req, res){
 
 		var user_id;
 		var classes;
