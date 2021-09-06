@@ -74,6 +74,7 @@ node_modules/
 #########################
 # dotenv environment variables file
 .env
+dist
 #########################.env.test
 #########################.env.production
 #########################
